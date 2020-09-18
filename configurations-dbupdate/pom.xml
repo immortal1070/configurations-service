@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.immortal.configurations</groupId>
+        <artifactId>configurations-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>configurations-dbupdate</artifactId>
+    <description>DBUpdate Services</description>
+<!--    <packaging>war</packaging>-->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.war.plugin>2.5</version.war.plugin>
+        <warSrcDir>${project.basedir}/src/main/webapp</warSrcDir>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.annotation</groupId>
+            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <groupId>jakarta.enterprise</groupId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Maven will append the version to the finalName (which is the name
+            given to the generated war, and hence the context root) -->
+        <finalName>${project.artifactId}</finalName>
+
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>analyze</id>-->
+<!--                        <goals>-->
+<!--                            <goal>analyze-only</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <failOnWarning>true</failOnWarning>-->
+<!--                            <outputXML>true</outputXML>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+</project>
