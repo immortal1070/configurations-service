@@ -1,20 +1,5 @@
 package com.immortal.configurations.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
-import org.jboss.logging.Logger;
-
 import com.immortal.configurations.api.dto.PropertyMetadataDto;
 import com.immortal.configurations.api.dto.PropertyMetadataGroupDto;
 import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
@@ -26,6 +11,14 @@ import com.immortal.configurations.interceptors.Logged;
 import com.immortal.configurations.transformer.PropertyMetadataTransformer;
 import com.immortal.configurations.validation.ExistConfigMetadata;
 import com.immortal.configurations.validation.ExistPropertyMetadata;
+import org.apache.commons.collections4.CollectionUtils;
+import org.jboss.logging.Logger;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Logged
 @Transactional
@@ -76,6 +69,11 @@ public class PropertyMetadataService
         dao.deleteById(id);
     }
 
+    public void delete(final PropertyMetadataSearchParams searchParams)
+    {
+        dao.delete(searchParams);
+    }
+
     /**
      * Registers the given group properties metadata.
      * <p>
@@ -104,7 +102,9 @@ public class PropertyMetadataService
             }
         });
 
-        dao.delete(new PropertyMetadataSearchParams().setIds(idsToDelete));
+        if (CollectionUtils.isNotEmpty(idsToDelete)) {
+            dao.delete(new PropertyMetadataSearchParams().setIds(idsToDelete));
+        }
 
         propertiesToRegister.forEach(
                 propertyToRegister -> registerProperty(configMetadataId, metadataGroup.getGroupName(),

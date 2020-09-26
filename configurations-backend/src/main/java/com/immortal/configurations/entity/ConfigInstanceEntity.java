@@ -5,19 +5,21 @@ import static com.immortal.configurations.constants.PersistenceConstants.UUID_GE
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,7 +37,6 @@ public class ConfigInstanceEntity implements Serializable
 {
     public static final String ENTITY_NAME = "ConfigInstance";
     public static final String TABLE_NAME = "config_instance";
-    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = ID_COLUMN)
@@ -44,42 +45,35 @@ public class ConfigInstanceEntity implements Serializable
     private UUID id;
 
     @Column(name = "create_date", nullable = false, updatable = false)
-    private Date createDate;
+    private ZonedDateTime createDate;
 
     @Column(name = "update_date", insertable = false)
-    private Date updateDate;
+    private ZonedDateTime updateDate;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Transient
-    //    @Column(name = "config_metadata", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "config_metadata_id", nullable = false, updatable = false)
     private ConfigMetadataEntity configMetadata;
 
-    @Transient
-//    @Column(name = "properties")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = ID_COLUMN, nullable = false, insertable = false, updatable = false)
     private List<PropertyValueEntity> propertyValues;
 
-    public ConfigInstanceEntity()
-    {
+    public ConfigInstanceEntity() {
     }
 
     @PrePersist
     public void prePersist()
     {
-        this.createDate = DateUtil.getNowInUtc();
-        setDefaultValues();
+        this.createDate = DateUtil.getZonedNowInUtc();
     }
 
     @PreUpdate
     public void preUpdate()
     {
-        this.updateDate = DateUtil.getNowInUtc();
-        setDefaultValues();
-    }
-
-    private void setDefaultValues()
-    {
+        this.updateDate = DateUtil.getZonedNowInUtc();
     }
 
     public UUID getId()
@@ -94,22 +88,22 @@ public class ConfigInstanceEntity implements Serializable
 
     public ZonedDateTime getCreateDate()
     {
-        return DateUtil.convertToZoneDateTimeInUtc(createDate);
+        return createDate;
     }
 
     public void setCreateDate(final ZonedDateTime createDate)
     {
-        this.createDate = DateUtil.convertToDateFromZoneDateTime(createDate);
+        this.createDate = createDate;
     }
 
     public ZonedDateTime getUpdateDate()
     {
-        return DateUtil.convertToZoneDateTimeInUtc(updateDate);
+        return updateDate;
     }
 
     public void setUpdateDate(final ZonedDateTime updateDate)
     {
-        this.updateDate = DateUtil.convertToDateFromZoneDateTime(updateDate);
+        this.updateDate = updateDate;
     }
 
     public String getName()
@@ -141,19 +135,4 @@ public class ConfigInstanceEntity implements Serializable
     {
         this.propertyValues = propertyValues;
     }
-
-    /**
-     * Queries params names
-     */
-    public interface ParamsNames
-    {
-    }
-
-    /**
-     * Named queries names
-     */
-    public interface QueryNames
-    {
-    }
-
 }

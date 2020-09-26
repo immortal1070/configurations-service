@@ -1,27 +1,24 @@
 package com.immortal.configurations.service;
 
-import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
-
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.apache.commons.collections4.CollectionUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.immortal.configurations.api.dto.ConfigMetadataDto;
 import com.immortal.configurations.api.dto.ConfigMetadataPersistDto;
-import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
+import com.immortal.configurations.api.params.PropertyMetadataSearchParams;
 import com.immortal.configurations.dao.ConfigMetadataDao;
 import com.immortal.configurations.entity.ConfigMetadataEntity;
 import com.immortal.configurations.interceptors.Logged;
 import com.immortal.configurations.transformer.ConfigMetadataTransformer;
 import com.immortal.configurations.validation.ExistConfigMetadata;
 import com.immortal.configurations.validation.NotExistConfigMetadata;
+import org.apache.commons.collections4.CollectionUtils;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.List;
+
+import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
 
 @Logged
 @Transactional
@@ -61,6 +58,9 @@ public class ConfigMetadataService
 
     public void delete(@ExistConfigMetadata final String id)
     {
+        propertyMetadataService.delete(new PropertyMetadataSearchParams().setConfigMetadataIds(
+            Collections.singletonList(id)
+        ));
         dao.deleteById(id);
     }
 

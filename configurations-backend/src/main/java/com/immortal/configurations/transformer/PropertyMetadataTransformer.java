@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import com.immortal.configurations.entity.ConfigMetadataEntity;
 import org.apache.commons.collections4.CollectionUtils;
 
 import com.immortal.configurations.api.dto.PropertyMetadataDto;
@@ -33,7 +34,10 @@ public class PropertyMetadataTransformer
             put(POSSIBLE_VALUES, (entity, dto) -> entity.setPossibleValues(dto.getPossibleValues()));
             put(TAGS, (entity, dto) -> entity.setTags(dto.getTags()));
             put(CONFIG_METADATA_ID,
-                    (entity, dto) -> entity.setConfigMetadata(configMetadataDao.findById(dto.getConfigMetadataId())));
+                    (entity, dto) -> {
+                        ConfigMetadataEntity configMetadata = configMetadataDao.findById(dto.getConfigMetadataId());
+                        entity.setConfigMetadata(configMetadata);
+                    });
             put(GROUP, (entity, dto) -> entity.setGroup(dto.getGroup()));
         }
     };
@@ -50,7 +54,7 @@ public class PropertyMetadataTransformer
         dto.setId(entity.getId());
         dto.setCreateDate(entity.getCreateDate());
         dto.setUpdateDate(entity.getUpdateDate());
-        dto.setConfigMetadataId(entity.getConfigMetadata().getId());
+        dto.setConfigMetadataId(entity.getConfigMetadataId());
         dto.setName(entity.getName());
         dto.setGroup(entity.getGroup());
         dto.setType(entity.getType());

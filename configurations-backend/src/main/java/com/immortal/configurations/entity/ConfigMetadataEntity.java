@@ -4,21 +4,9 @@ import static com.immortal.configurations.constants.PersistenceConstants.ID_COLU
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -33,24 +21,22 @@ public class ConfigMetadataEntity implements Serializable
 {
     public static final String ENTITY_NAME = "ConfigMetadata";
     public static final String TABLE_NAME = "config_metadata";
-    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = ID_COLUMN, nullable = false, updatable = false)
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = ID_COLUMN, nullable = false, insertable = false, updatable = false)
     private List<PropertyMetadataEntity> propertyMetadatas;
 
     @Column(name = "create_date", nullable = false, updatable = false)
-    private Date createDate;
+    private ZonedDateTime createDate;
 
     @Column(name = "update_date", insertable = false)
-    private Date updateDate;
+    private ZonedDateTime updateDate;
 
-    public ConfigMetadataEntity()
-    {
+    public ConfigMetadataEntity() {
     }
 
     public ConfigMetadataEntity(final String id)
@@ -61,19 +47,13 @@ public class ConfigMetadataEntity implements Serializable
     @PrePersist
     public void prePersist()
     {
-        this.createDate = DateUtil.getNowInUtc();
-        setDefaultValues();
+        this.createDate = DateUtil.getZonedNowInUtc();
     }
 
     @PreUpdate
     public void preUpdate()
     {
-        this.updateDate = DateUtil.getNowInUtc();
-        setDefaultValues();
-    }
-
-    private void setDefaultValues()
-    {
+        this.updateDate = DateUtil.getZonedNowInUtc();
     }
 
     public String getId()
@@ -88,22 +68,22 @@ public class ConfigMetadataEntity implements Serializable
 
     public ZonedDateTime getCreateDate()
     {
-        return DateUtil.convertToZoneDateTimeInUtc(createDate);
+        return createDate;
     }
 
     public void setCreateDate(final ZonedDateTime createDate)
     {
-        this.createDate = DateUtil.convertToDateFromZoneDateTime(createDate);
+        this.createDate = createDate;
     }
 
     public ZonedDateTime getUpdateDate()
     {
-        return DateUtil.convertToZoneDateTimeInUtc(updateDate);
+        return updateDate;
     }
 
     public void setUpdateDate(final ZonedDateTime updateDate)
     {
-        this.updateDate = DateUtil.convertToDateFromZoneDateTime(updateDate);
+        this.updateDate = updateDate;
     }
 
     public List<PropertyMetadataEntity> getPropertyMetadatas()
@@ -115,19 +95,4 @@ public class ConfigMetadataEntity implements Serializable
     {
         this.propertyMetadatas = propertyMetadatas;
     }
-
-    /**
-     * Queries params names
-     */
-    public interface ParamsNames
-    {
-    }
-
-    /**
-     * Named queries names
-     */
-    public interface QueryNames
-    {
-    }
-
 }

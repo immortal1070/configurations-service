@@ -1,49 +1,32 @@
 package com.immortal.configurations.entity;
 
-import static com.immortal.configurations.constants.PersistenceConstants.ID_COLUMN;
-import static com.immortal.configurations.constants.PersistenceConstants.UUID_GENERATOR_TYPE;
+import com.immortal.configurations.entity.converters.StringListConverter;
+import com.immortal.configurations.util.DateUtil;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
-
-import com.immortal.configurations.util.DateUtil;
+import static com.immortal.configurations.constants.PersistenceConstants.ID_COLUMN;
+import static com.immortal.configurations.constants.PersistenceConstants.UUID_GENERATOR_TYPE;
 
 @Entity(name = PropertyMetadataEntity.ENTITY_NAME)
 @Table(name = PropertyMetadataEntity.TABLE_NAME)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PropertyMetadataEntity implements Serializable
-{
+public class PropertyMetadataEntity implements Serializable {
     public static final String ENTITY_NAME = "PropertyMetadata";
     public static final String TABLE_NAME = "property_metadata";
 
-    interface Columns
-    {
+    interface Columns {
         String CONFIG_METADATA_ID = "config_metadata_id";
     }
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = ID_COLUMN)
@@ -73,150 +56,124 @@ public class PropertyMetadataEntity implements Serializable
     @Column(name = "default_value")
     private String defaultValue;
 
-    @ElementCollection
     @Column(name = "possible_values")
+    @Convert(converter = StringListConverter.class)
     private List<String> possibleValues;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "property_metadata_tags", joinColumns = @JoinColumn(name = "property_metadata_id"))
     @Column(name = "tag")
     private List<String> tags;
 
     @Column(name = "create_date", nullable = false, updatable = false)
-    private Date createDate;
+    private ZonedDateTime createDate;
 
     @Column(name = "update_date", insertable = false)
-    private Date updateDate;
+    private ZonedDateTime updateDate;
 
-    public PropertyMetadataEntity()
-    {
+    public PropertyMetadataEntity() {
     }
 
     @PrePersist
-    public void prePersist()
-    {
-        this.createDate = DateUtil.getNowInUtc();
+    public void prePersist() {
+        this.createDate = DateUtil.getZonedNowInUtc();
         setDefaultValues();
     }
 
     @PreUpdate
-    public void preUpdate()
-    {
-        this.updateDate = DateUtil.getNowInUtc();
+    public void preUpdate() {
+        this.updateDate = DateUtil.getZonedNowInUtc();
         setDefaultValues();
     }
 
-    private void setDefaultValues()
-    {
+    private void setDefaultValues() {
     }
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(final UUID id)
-    {
+    public void setId(final UUID id) {
         this.id = id;
     }
 
-    public ZonedDateTime getCreateDate()
-    {
-        return DateUtil.convertToZoneDateTimeInUtc(createDate);
+    public ZonedDateTime getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateDate(final ZonedDateTime createDate)
-    {
-        this.createDate = DateUtil.convertToDateFromZoneDateTime(createDate);
+    public void setCreateDate(final ZonedDateTime createDate) {
+        this.createDate = createDate;
     }
 
-    public ZonedDateTime getUpdateDate()
-    {
-        return DateUtil.convertToZoneDateTimeInUtc(updateDate);
+    public ZonedDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setUpdateDate(final ZonedDateTime updateDate)
-    {
-        this.updateDate = DateUtil.convertToDateFromZoneDateTime(updateDate);
+    public void setUpdateDate(final ZonedDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public ConfigMetadataEntity getConfigMetadata()
-    {
+    public ConfigMetadataEntity getConfigMetadata() {
         return configMetadata;
     }
 
-    public void setConfigMetadata(final ConfigMetadataEntity configMetadata)
-    {
+    public void setConfigMetadata(final ConfigMetadataEntity configMetadata) {
         this.configMetadata = configMetadata;
     }
 
-    public String getConfigMetadataId()
-    {
+    public String getConfigMetadataId() {
         return configMetadataId;
     }
 
-    public void setConfigMetadataId(final String configMetadataId)
-    {
+    public void setConfigMetadataId(final String configMetadataId) {
         this.configMetadataId = configMetadataId;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public String getGroup()
-    {
+    public String getGroup() {
         return group;
     }
 
-    public void setGroup(final String group)
-    {
+    public void setGroup(final String group) {
         this.group = group;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         this.type = type;
     }
 
-    public String getDefaultValue()
-    {
+    public String getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(final String defaultValue)
-    {
+    public void setDefaultValue(final String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
-    public List<String> getPossibleValues()
-    {
+    public List<String> getPossibleValues() {
         return possibleValues;
     }
 
-    public void setPossibleValues(final List<String> possibleValues)
-    {
+    public void setPossibleValues(final List<String> possibleValues) {
         this.possibleValues = possibleValues;
     }
 
-    public List<String> getTags()
-    {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(final List<String> tags)
-    {
+    public void setTags(final List<String> tags) {
         this.tags = tags;
     }
 }

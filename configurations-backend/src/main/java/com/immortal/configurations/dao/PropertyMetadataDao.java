@@ -42,5 +42,6 @@ public class PropertyMetadataDao extends AbstractDao<PropertyMetadataEntity, UUI
         criteriaHelper.inCollection(PropertyMetadataEntity_.group, searchParams.getGroups());
         criteriaHelper.inCollection(PropertyMetadataEntity_.name, searchParams.getNames());
         criteriaHelper.inCollection(PropertyMetadataEntity_.id, searchParams.getIds());
+        criteriaHelper.inCollection(PropertyMetadataEntity_.configMetadataId, searchParams.getConfigMetadataIds());
     }
 }

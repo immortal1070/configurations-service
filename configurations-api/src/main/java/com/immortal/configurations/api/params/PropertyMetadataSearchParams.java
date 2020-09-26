@@ -8,12 +8,17 @@ import javax.ws.rs.QueryParam;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import static com.immortal.configurations.api.params.PropertyMetadataSearchParams.Params.*;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PropertyMetadataSearchParams implements Serializable
 {
-    public static final String GROUP = "group";
-    public static final String NAME = "name";
-    public static final String ID = "id";
+    interface Params {
+        String GROUP = "group";
+        String NAME = "name";
+        String ID = "id";
+        String CONFIG_METADATA_ID = "configMetadataId";
+    }
 
     @QueryParam(GROUP)
     List<String> groups;
@@ -23,6 +28,10 @@ public class PropertyMetadataSearchParams implements Serializable
 
     @QueryParam(ID)
     List<UUID> ids;
+
+    @QueryParam(CONFIG_METADATA_ID)
+    List<String> configMetadataIds;
+
 //
 //    @QueryParam(USER_ID)
 //    Integer userId;
@@ -113,6 +122,15 @@ public class PropertyMetadataSearchParams implements Serializable
     public PropertyMetadataSearchParams setIds(final List<UUID> ids)
     {
         this.ids = ids;
+        return this;
+    }
+
+    public List<String> getConfigMetadataIds() {
+        return configMetadataIds;
+    }
+
+    public PropertyMetadataSearchParams setConfigMetadataIds(List<String> configMetadataIds) {
+        this.configMetadataIds = configMetadataIds;
         return this;
     }
 }

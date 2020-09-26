@@ -1,7 +1,15 @@
 package com.immortal.configurations.dao;
 
-import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
+import com.immortal.configurations.util.criteria.DeleteCriteria;
+import com.immortal.configurations.util.criteria.SelectCriteria;
+import com.immortal.configurations.util.criteria.UpdateCriteria;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
@@ -9,20 +17,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import com.immortal.configurations.util.criteria.DeleteCriteria;
-import com.immortal.configurations.util.criteria.SelectCriteria;
-import com.immortal.configurations.util.criteria.UpdateCriteria;
+import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
 
 //import com.immortal.utils.audit.AuditActionsEnum;
 //import com.immortal.utils.persistence.AuditDaoManager;
