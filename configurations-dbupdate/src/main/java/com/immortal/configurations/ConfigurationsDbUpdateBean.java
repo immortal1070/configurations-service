@@ -1,19 +1,18 @@
 package com.immortal.configurations;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.Set;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.configuration.FluentConfiguration;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.sql.DataSource;
-
-import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.configuration.FluentConfiguration;
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ConfigurationsDbUpdateBean
@@ -38,7 +37,9 @@ public class ConfigurationsDbUpdateBean
             flywayConfig.baselineOnMigrate(true);
             flywayConfig.baselineDescription("Updates will be executed from this version");
 
-            Set<String> scriptLocations = Collections.singleton(DEFAULT_SCRIPTS_FOLDER);
+            Set<String> scriptLocations = new HashSet<>();
+            scriptLocations.add(DEFAULT_SCRIPTS_FOLDER + "common");
+            scriptLocations.add(DEFAULT_SCRIPTS_FOLDER + "mysql");
 
             Set<String> prefixedScriptLocations = scriptLocations.stream()
                     .map(scriptLocation -> "classpath:" + scriptLocation).collect(Collectors.toSet());

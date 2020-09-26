@@ -1,8 +1,8 @@
-DROP PROCEDURE IF EXISTS dbupdateProcedure;
+DROP PROCEDURE IF EXISTS createPropertyValue;
 
 DELIMITER //
 
-CREATE PROCEDURE dbupdateProcedure()
+CREATE PROCEDURE createPropertyValue()
 BEGIN
 
     IF NOT EXISTS(SELECT *
@@ -28,7 +28,7 @@ BEGIN
 END //
 DELIMITER;
 
-CALL dbupdateProcedure();
+CALL createPropertyValue();
 
-DROP PROCEDURE dbupdateProcedure;
+DROP PROCEDURE createPropertyValue;
 

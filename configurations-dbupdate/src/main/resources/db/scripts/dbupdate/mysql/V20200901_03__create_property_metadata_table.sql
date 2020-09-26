@@ -18,16 +18,16 @@ BEGIN
             property_group     VARCHAR(255) NOT NULL,
             type               VARCHAR(255) NOT NULL,
             default_value      VARCHAR(255),
-#             POSSIBLE_VALUES TEXT #UNKNOWN TYPE! CHECK IT!,
+            possible_values    TEXT,
             create_date        DATETIME     NOT NULL,
             update_date        DATETIME
         ) ENGINE = InnoDB
           DEFAULT CHARSET = utf8;
 
         ALTER TABLE property_metadata
-            ADD CONSTRAINT FK_CONFIG_METADATA
+            ADD CONSTRAINT FK_PROPERTY_CONFIG_METADATA
                 FOREIGN KEY (config_metadata_id)
-                    REFERENCES config_metadata (id);
+                    REFERENCES config_metadata(id);
 
         CREATE INDEX CREATE_DATE ON property_metadata (CREATE_DATE);
         CREATE INDEX UPDATE_DATE ON property_metadata (UPDATE_DATE);
