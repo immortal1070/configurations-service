@@ -14,7 +14,7 @@ public abstract class PreparedTestDataResolver<T>
 
     public abstract T create();
 
-    public abstract void delete(final T created);
+    public abstract void cleanup();
 
     public abstract Class<T> getClazz();
 
@@ -28,8 +28,8 @@ public abstract class PreparedTestDataResolver<T>
     @Override
     public void afterTestExecution(ExtensionContext context)
     {
-        T created = getStore(context).remove(STORE, getClazz());
-        delete(created);
+        getStore(context).remove(STORE, getClazz());
+        cleanup();
     }
 
     private ExtensionContext.Store getStore(ExtensionContext context) {

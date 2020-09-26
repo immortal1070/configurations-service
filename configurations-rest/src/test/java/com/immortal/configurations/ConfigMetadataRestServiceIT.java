@@ -1,5 +1,6 @@
 package com.immortal.configurations;
 
+import static com.immortal.configurations.prepared.ConfigMetadataPreparedDataResolver.prepareConfigMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.HttpURLConnection;
@@ -52,8 +53,9 @@ public class ConfigMetadataRestServiceIT extends ConfigurationsTest
     }
 
     @Test
-    public void testDeleteConfigMetadata(final ConfigMetadataDto created)
+    public void testDeleteConfigMetadata()
     {
+        final ConfigMetadataDto created = resource.register(prepareConfigMetadata());
         resource.delete(created.getId());
         assertNull(resource.findById(created.getId()));
     }
