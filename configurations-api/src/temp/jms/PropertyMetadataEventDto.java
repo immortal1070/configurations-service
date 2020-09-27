@@ -2,8 +2,7 @@ package com.immortal.configurations.api.jms;
 
 import java.io.Serializable;
 
-public class PropertyMetadataEventDto implements Serializable
-{
+public class PropertyMetadataEventDto implements Serializable {
     private UUID id;
 
     private ZonedDateTime createDate;
@@ -26,113 +25,91 @@ public class PropertyMetadataEventDto implements Serializable
 
     private boolean deleted;
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(final UUID id)
-    {
+    public void setId(final UUID id) {
         this.id = id;
     }
 
-    public ZonedDateTime getCreateDate()
-    {
+    public ZonedDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(final ZonedDateTime createDate)
-    {
+    public void setCreateDate(final ZonedDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public ZonedDateTime getUpdateDate()
-    {
+    public ZonedDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(final ZonedDateTime updateDate)
-    {
+    public void setUpdateDate(final ZonedDateTime updateDate) {
         this.updateDate = updateDate;
     }
 
-    public ConfigMetadataEntity getConfigMetadata()
-    {
+    public ConfigMetadataEntity getConfigMetadata() {
         return configMetadata;
     }
 
-    public void setConfigMetadata(final ConfigMetadataEntity configMetadata)
-    {
+    public void setConfigMetadata(final ConfigMetadataEntity configMetadata) {
         this.configMetadata = configMetadata;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public String getGroup()
-    {
+    public String getGroup() {
         return group;
     }
 
-    public void setGroup(final String group)
-    {
+    public void setGroup(final String group) {
         this.group = group;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         this.type = type;
     }
 
-    public String getDefaultValue()
-    {
+    public String getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(final String defaultValue)
-    {
+    public void setDefaultValue(final String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
-    public List<String> getPossibleValues()
-    {
+    public List<String> getPossibleValues() {
         return possibleValues;
     }
 
-    public void setPossibleValues(final List<String> possibleValues)
-    {
+    public void setPossibleValues(final List<String> possibleValues) {
         this.possibleValues = possibleValues;
     }
 
-    public List<String> getTags()
-    {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(final List<String> tags)
-    {
+    public void setTags(final List<String> tags) {
         this.tags = tags;
     }
 
-    public boolean getDeleted()
-    {
+    public boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(final boolean deleted)
-    {
+    public void setDeleted(final boolean deleted) {
         this.deleted = deleted;
     }
 

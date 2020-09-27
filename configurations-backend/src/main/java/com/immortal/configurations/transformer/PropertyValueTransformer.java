@@ -1,23 +1,20 @@
 package com.immortal.configurations.transformer;
 
-import static com.immortal.configurations.api.dto.PropertyValuePersistDto.Fields.NAME;
-import static com.immortal.configurations.api.dto.PropertyValuePersistDto.Fields.VALUE;
+import com.immortal.configurations.api.dto.PropertyValueDto;
+import com.immortal.configurations.api.dto.PropertyValuePersistDto;
+import com.immortal.configurations.entity.PropertyValueEntity;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections4.CollectionUtils;
+import static com.immortal.configurations.api.dto.PropertyValuePersistDto.Fields.NAME;
+import static com.immortal.configurations.api.dto.PropertyValuePersistDto.Fields.VALUE;
 
-import com.immortal.configurations.api.dto.PropertyValueDto;
-import com.immortal.configurations.api.dto.PropertyValuePersistDto;
-import com.immortal.configurations.entity.PropertyValueEntity;
-
-public class PropertyValueTransformer
-{
-    private ModifiersMap<PropertyValueEntity, PropertyValuePersistDto> partialUpdate = new ModifiersMap<PropertyValueEntity, PropertyValuePersistDto>()
-    {
+public class PropertyValueTransformer {
+    private ModifiersMap<PropertyValueEntity, PropertyValuePersistDto> partialUpdate = new ModifiersMap<PropertyValueEntity, PropertyValuePersistDto>() {
         {
             //TODO
 //            put(CONFIGURATION_INSTANCE,
@@ -31,10 +28,8 @@ public class PropertyValueTransformer
     };
 
     //To read dto! With id and dates, etc.
-    public PropertyValueDto entityToDto(final PropertyValueEntity entity)
-    {
-        if (entity == null)
-        {
+    public PropertyValueDto entityToDto(final PropertyValueEntity entity) {
+        if (entity == null) {
             return null;
         }
 
@@ -55,10 +50,8 @@ public class PropertyValueTransformer
         return dto;
     }
 
-    public List<PropertyValueDto> entitiesToDtos(final List<PropertyValueEntity> entities)
-    {
-        if (CollectionUtils.isEmpty(entities))
-        {
+    public List<PropertyValueDto> entitiesToDtos(final List<PropertyValueEntity> entities) {
+        if (CollectionUtils.isEmpty(entities)) {
             return Collections.emptyList();
         }
 
@@ -94,13 +87,11 @@ public class PropertyValueTransformer
 //        return dto;
 //    }
 
-    public Consumer<PropertyValueEntity> dtoToModifier(final PropertyValuePersistDto dto)
-    {
+    public Consumer<PropertyValueEntity> dtoToModifier(final PropertyValuePersistDto dto) {
         return partialUpdate.dtoToModifier(dto, false);
     }
 
-    public Consumer<PropertyValueEntity> dtoToPartialModifier(final PropertyValuePersistDto dto)
-    {
+    public Consumer<PropertyValueEntity> dtoToPartialModifier(final PropertyValuePersistDto dto) {
         return partialUpdate.dtoToModifier(dto, true);
     }
 }

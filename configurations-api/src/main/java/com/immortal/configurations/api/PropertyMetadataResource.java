@@ -1,24 +1,5 @@
 package com.immortal.configurations.api;
 
-import static com.immortal.configurations.api.PropertyMetadataResource.Routing.Endpoints.ID_PATH;
-import static com.immortal.configurations.api.PropertyMetadataResource.Routing.SERVICE_PREFIX;
-
-import java.net.HttpURLConnection;
-import java.util.List;
-import java.util.UUID;
-
-import javax.validation.Valid;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import com.immortal.configurations.api.annotations.PATCH;
 import com.immortal.configurations.api.constants.ConfigurationsMessages;
 import com.immortal.configurations.api.dto.PropertyMetadataDto;
@@ -26,6 +7,16 @@ import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
 import com.immortal.configurations.api.params.PropertyMetadataSearchParams;
 import com.webcohesion.enunciate.metadata.rs.ResponseCode;
 import com.webcohesion.enunciate.metadata.rs.StatusCodes;
+
+import javax.validation.Valid;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.net.HttpURLConnection;
+import java.util.List;
+import java.util.UUID;
+
+import static com.immortal.configurations.api.PropertyMetadataResource.Routing.Endpoints.ID_PATH;
+import static com.immortal.configurations.api.PropertyMetadataResource.Routing.SERVICE_PREFIX;
 
 /**
  * Service for UI languages (ones with en-US format).
@@ -38,23 +29,7 @@ import com.webcohesion.enunciate.metadata.rs.StatusCodes;
 @Produces(MediaType.APPLICATION_JSON)
 //@ServiceContextRoot(ConfigurationsConstants.Rest.RootContexts.CONFIGURATIONS)
 //@RolesAllowed(JaasRights.MANAGE_PROPERTY_METADATA)
-public interface PropertyMetadataResource
-{
-
-    interface Routing
-    {
-        String SERVICE_PREFIX = "/props/metadata";
-
-        interface Endpoints
-        {
-            String ID_PATH = "/{" + Params.ID + "}";
-        }
-    }
-
-    interface Params
-    {
-        String ID = "ID";
-    }
+public interface PropertyMetadataResource {
 
     /**
      * Returns PropertyMetadata by id
@@ -62,8 +37,8 @@ public interface PropertyMetadataResource
     @GET
     @Path(ID_PATH)
     @Produces(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_OK, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = "entity not found") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_OK, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = "entity not found")})
     PropertyMetadataDto findById(@PathParam(Params.ID) UUID id);
 
     /**
@@ -81,8 +56,8 @@ public interface PropertyMetadataResource
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     PropertyMetadataDto create(@Valid PropertyMetadataPersistDto dto);
 
     /**
@@ -91,8 +66,8 @@ public interface PropertyMetadataResource
     @PUT
     @Path(ID_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     PropertyMetadataDto update(@PathParam(Params.ID) UUID id, @Valid PropertyMetadataPersistDto dto);
 
     /**
@@ -101,8 +76,8 @@ public interface PropertyMetadataResource
     @PATCH
     @Path(ID_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     PropertyMetadataDto partialUpdate(@PathParam(Params.ID) UUID id, @Valid PropertyMetadataPersistDto dto);
 
     /**
@@ -111,7 +86,19 @@ public interface PropertyMetadataResource
     @DELETE
     @Path(ID_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     void delete(@PathParam(Params.ID) UUID id);
+
+    interface Routing {
+        String SERVICE_PREFIX = "/props/metadata";
+
+        interface Endpoints {
+            String ID_PATH = "/{" + Params.ID + "}";
+        }
+    }
+
+    interface Params {
+        String ID = "ID";
+    }
 }

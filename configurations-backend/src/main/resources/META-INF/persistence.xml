@@ -6,17 +6,18 @@
 
     <persistence-unit name="configurations" transaction-type="JTA">
         <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
-<!--        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>-->
+        <!--        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>-->
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
-<!--            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <!--            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
             <property name="hibernate.show_sql" value="true"/>
 
             <property name="hibernate.cache.use_query_cache" value="true"/>
             <property name="hibernate.cache.use_second_level_cache" value="true"/>
             <property name="hibernate.cache.use_structured_entries" value="true"/>
-            <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+            <property name="hibernate.transaction.manager_lookup_class"
+                      value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
         </properties>
     </persistence-unit>
 

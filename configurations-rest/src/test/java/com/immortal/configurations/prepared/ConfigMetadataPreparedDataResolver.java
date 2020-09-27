@@ -17,28 +17,11 @@ import java.util.UUID;
  */
 public class ConfigMetadataPreparedDataResolver extends PreparedTestDataResolver<ConfigMetadataDto> {
 
-    private final static Logger logger = Logger.getLogger(ConfigMetadataPreparedDataResolver.class);
-
-    private final static ConfigMetadataResource resource = new TestRestClient()
-        .getRestProxy(ConfigMetadataResource.class);
-
     public static final String USER_PROPERTIES_GROUP = "userProperties";
     public static final String THEME_PROPERTIES_GROUP = "themeProperties";
-
-    @Override
-    public ConfigMetadataDto create() {
-        return resource.register(prepareConfigMetadata());
-    }
-
-    @Override
-    public void cleanup() {
-        resource.find().forEach(configMetadataDto -> resource.delete(configMetadataDto.getId()));
-    }
-
-    @Override
-    public Class<ConfigMetadataDto> getClazz() {
-        return ConfigMetadataDto.class;
-    }
+    private final static Logger logger = Logger.getLogger(ConfigMetadataPreparedDataResolver.class);
+    private final static ConfigMetadataResource resource = new TestRestClient()
+        .getRestProxy(ConfigMetadataResource.class);
 
     public static ConfigMetadataPersistDto prepareConfigMetadata() {
         ConfigMetadataPersistDto configMetadataPersistDto = new ConfigMetadataPersistDto(UUID.randomUUID().toString());
@@ -62,6 +45,21 @@ public class ConfigMetadataPreparedDataResolver extends PreparedTestDataResolver
         configMetadataPersistDto.setPropertyMetadataGroups(Arrays.asList(userProperiesGroup, themeProperiesGroup));
 
         return configMetadataPersistDto;
+    }
+
+    @Override
+    public ConfigMetadataDto create() {
+        return resource.register(prepareConfigMetadata());
+    }
+
+    @Override
+    public void cleanup() {
+//        resource.find().forEach(configMetadataDto -> resource.delete(configMetadataDto.getId()));
+    }
+
+    @Override
+    public Class<ConfigMetadataDto> getClazz() {
+        return ConfigMetadataDto.class;
     }
 
 }

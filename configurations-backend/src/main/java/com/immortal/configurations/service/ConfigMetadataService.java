@@ -22,8 +22,7 @@ import static com.immortal.configurations.constants.PersistenceConstants.PERSIST
 
 @Logged
 @Transactional
-public class ConfigMetadataService
-{
+public class ConfigMetadataService {
     @Inject
     private PropertyMetadataService propertyMetadataService;
 
@@ -36,45 +35,38 @@ public class ConfigMetadataService
     @PersistenceContext(unitName = PERSISTENCE_CONTEXT)
     private EntityManager em;
 
-    public boolean exists(final String id)
-    {
+    public boolean exists(final String id) {
         return dao.exists(id);
     }
 
-    public ConfigMetadataDto findById(final String id)
-    {
+    public ConfigMetadataDto findById(final String id) {
         return transformer.entityToDto(dao.findById(id));
     }
 
-    public List<ConfigMetadataDto> find()
-    {
+    public List<ConfigMetadataDto> find() {
         return transformer.entitiesToDtos(dao.findAll());
     }
 
-    public ConfigMetadataDto create(@NotExistConfigMetadata final String id)
-    {
+    public ConfigMetadataDto create(@NotExistConfigMetadata final String id) {
         return transformer.entityToDto(dao.create(new ConfigMetadataEntity(id)));
     }
 
-    public void delete(@ExistConfigMetadata final String id)
-    {
+    public void delete(@ExistConfigMetadata final String id) {
         propertyMetadataService.delete(new PropertyMetadataSearchParams().setConfigMetadataIds(
             Collections.singletonList(id)
         ));
         dao.deleteById(id);
     }
 
-    public ConfigMetadataDto register(final ConfigMetadataPersistDto configMetadataPersistDto)
-    {
+    public ConfigMetadataDto register(final ConfigMetadataPersistDto configMetadataPersistDto) {
         String configMetadataId = configMetadataPersistDto.getId();
         ConfigMetadataDto configMetadataDto = findById(configMetadataId);
-        if (configMetadataDto == null)
-        {
+        if (configMetadataDto == null) {
             configMetadataDto = create(configMetadataId);
         }
         final ConfigMetadataDto finalConfigMetadataDto = configMetadataDto;
         CollectionUtils.emptyIfNull(configMetadataPersistDto.getPropertyMetadataGroups())
-                .forEach(metadataGroup -> propertyMetadataService
+            .forEach(metadataGroup -> propertyMetadataService
                 .registerGroup(finalConfigMetadataDto.getId(), metadataGroup));
 
         return transformer.entityToDto(dao.findById(configMetadataDto.getId()));

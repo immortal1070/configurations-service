@@ -2,8 +2,7 @@ package com.immortal.configurations.api.jms;
 
 import java.io.Serializable;
 
-public class ConfigInstanceEventDto implements Serializable
-{
+public class ConfigInstanceEventDto implements Serializable {
     private UUID id;
 
     private ZonedDateTime createDate;
@@ -18,73 +17,59 @@ public class ConfigInstanceEventDto implements Serializable
 
     private boolean deleted;
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(final UUID id)
-    {
+    public void setId(final UUID id) {
         this.id = id;
     }
 
-    public ZonedDateTime getCreateDate()
-    {
+    public ZonedDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(final ZonedDateTime createDate)
-    {
+    public void setCreateDate(final ZonedDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public ZonedDateTime getUpdateDate()
-    {
+    public ZonedDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(final ZonedDateTime updateDate)
-    {
+    public void setUpdateDate(final ZonedDateTime updateDate) {
         this.updateDate = updateDate;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public ConfigMetadataEntity getConfigMetadata()
-    {
+    public ConfigMetadataEntity getConfigMetadata() {
         return configMetadata;
     }
 
-    public void setConfigMetadata(final ConfigMetadataEntity configMetadata)
-    {
+    public void setConfigMetadata(final ConfigMetadataEntity configMetadata) {
         this.configMetadata = configMetadata;
     }
 
-    public List<PropertyValueEntity> getPropertyValues()
-    {
+    public List<PropertyValueEntity> getPropertyValues() {
         return propertyValues;
     }
 
-    public void setPropertyValues(final List<PropertyValueEntity> propertyValues)
-    {
+    public void setPropertyValues(final List<PropertyValueEntity> propertyValues) {
         this.propertyValues = propertyValues;
     }
 
-    public boolean getDeleted()
-    {
+    public boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(final boolean deleted)
-    {
+    public void setDeleted(final boolean deleted) {
         this.deleted = deleted;
     }
 

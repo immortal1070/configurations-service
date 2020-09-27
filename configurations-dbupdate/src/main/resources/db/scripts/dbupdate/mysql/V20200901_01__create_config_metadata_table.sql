@@ -13,7 +13,7 @@ BEGIN
         CREATE TABLE IF NOT EXISTS config_metadata
         (
             id          VARCHAR(255) NOT NULL PRIMARY KEY,
-            create_date DATETIME   NOT NULL,
+            create_date DATETIME     NOT NULL,
             update_date DATETIME
         ) ENGINE = InnoDB
           DEFAULT CHARSET = utf8;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-        xmlns="http://maven.apache.org/POM/4.0.0">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,7 +14,7 @@
 
     <artifactId>configurations-backend</artifactId>
     <description>Backend Services</description>
-<!--    <packaging>ejb</packaging>-->
+    <!--    <packaging>ejb</packaging>-->
 
     <dependencies>
 
@@ -92,6 +92,25 @@
             <artifactId>jakarta.validation-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>jakarta.validation</groupId>-->
+        <!--            <artifactId>jakarta.validation-api</artifactId>-->
+        <!--            <version>${version.jakarta.validation}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.hibernate.validator</groupId>-->
+        <!--            <artifactId>hibernate-validator</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jboss.resteasy</groupId>-->
+        <!--            <artifactId>resteasy-validator-provider</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.hibernate.validator</groupId>-->
+        <!--            <artifactId>hibernate-validator-annotation-processor</artifactId>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
@@ -112,51 +131,51 @@
 
     <build>
         <plugins>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>analyze</id>
-                            <goals>
-                                <goal>analyze-only</goal>
-                            </goals>
-                            <configuration>
-                                <failOnWarning>true</failOnWarning>
-                                <outputXML>true</outputXML>
-                                <ignoredUnusedDeclaredDependencies>
-                                    <ignoredUnusedDeclaredDependency>
-                                        org.hibernate:hibernate-jpamodelgen
-                                    </ignoredUnusedDeclaredDependency>
-                                </ignoredUnusedDeclaredDependencies>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.bsc.maven</groupId>-->
-<!--                <artifactId>maven-processor-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>process</id>-->
-<!--                        <goals>-->
-<!--                            <goal>process</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>generate-sources</phase>-->
-<!--                        <configuration>-->
-<!--                            <processors>-->
-<!--                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
-<!--                            </processors>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                &lt;!&ndash;                <dependencies>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <groupId>org.hibernate</groupId>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <artifactId>hibernate-jpamodelgen</artifactId>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </dependencies>&ndash;&gt;-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarning>true</failOnWarning>
+                            <outputXML>true</outputXML>
+                            <ignoredUnusedDeclaredDependencies>
+                                <ignoredUnusedDeclaredDependency>
+                                    org.hibernate:hibernate-jpamodelgen
+                                </ignoredUnusedDeclaredDependency>
+                            </ignoredUnusedDeclaredDependencies>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.bsc.maven</groupId>-->
+            <!--                <artifactId>maven-processor-plugin</artifactId>-->
+            <!--                <version>3.2.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>process</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>process</goal>-->
+            <!--                        </goals>-->
+            <!--                        <phase>generate-sources</phase>-->
+            <!--                        <configuration>-->
+            <!--                            <processors>-->
+            <!--                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
+            <!--                            </processors>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                &lt;!&ndash;                <dependencies>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        <groupId>org.hibernate</groupId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        <artifactId>hibernate-jpamodelgen</artifactId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </dependencies>&ndash;&gt;-->
+            <!--            </plugin>-->
             <!--            <plugin>-->
             <!--                <groupId>org.codehaus.mojo</groupId>-->
             <!--                <artifactId>build-helper-maven-plugin</artifactId>-->

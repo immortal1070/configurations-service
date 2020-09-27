@@ -1,15 +1,9 @@
 package com.immortal.configurations.prepared;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ParameterContext;
-import org.junit.jupiter.api.extension.ParameterResolutionException;
-import org.junit.jupiter.api.extension.ParameterResolver;
+import org.junit.jupiter.api.extension.*;
 
 public abstract class PreparedTestDataResolver<T>
-        implements BeforeTestExecutionCallback, AfterTestExecutionCallback, ParameterResolver
-{
+    implements BeforeTestExecutionCallback, AfterTestExecutionCallback, ParameterResolver {
     private final static String STORE = "store";
 
     public abstract T create();
@@ -19,15 +13,13 @@ public abstract class PreparedTestDataResolver<T>
     public abstract Class<T> getClazz();
 
     @Override
-    public void beforeTestExecution(ExtensionContext context)
-    {
+    public void beforeTestExecution(ExtensionContext context) {
         final T created = create();
         getStore(context).put(STORE, created);
     }
 
     @Override
-    public void afterTestExecution(ExtensionContext context)
-    {
+    public void afterTestExecution(ExtensionContext context) {
         getStore(context).remove(STORE, getClazz());
         cleanup();
     }
@@ -38,15 +30,13 @@ public abstract class PreparedTestDataResolver<T>
 
     @Override
     public boolean supportsParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext)
-            throws ParameterResolutionException
-    {
+        throws ParameterResolutionException {
         return parameterContext.getParameter().getType() == getClazz();
     }
 
     @Override
     public Object resolveParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext)
-            throws ParameterResolutionException
-    {
+        throws ParameterResolutionException {
         return getStore(extensionContext).get(STORE);
     }
 }

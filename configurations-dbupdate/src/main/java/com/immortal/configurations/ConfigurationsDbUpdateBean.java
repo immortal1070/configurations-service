@@ -15,19 +15,17 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class ConfigurationsDbUpdateBean
-{
+public class ConfigurationsDbUpdateBean {
     private static final Logger logger = Logger.getLogger(ConfigurationsDbUpdateBean.class.getName());
 
     private static final String SCHEMA_HISTORY_TABLE = "configurations_schema_history";
     private static final String DEFAULT_SCRIPTS_FOLDER =
-            "db" + File.separator + "scripts" + File.separator + "dbupdate" + File.separator;
+        "db" + File.separator + "scripts" + File.separator + "dbupdate" + File.separator;
 
     @Resource(mappedName = "java:jboss/datasources/MySQLDS")
     private DataSource dataSource;
 
-    public void migrate(@Observes @Initialized(ApplicationScoped.class) Object o)
-    {
+    public void migrate(@Observes @Initialized(ApplicationScoped.class) Object o) {
         {
             logger.info("migrating DB...");
 
@@ -42,9 +40,9 @@ public class ConfigurationsDbUpdateBean
             scriptLocations.add(DEFAULT_SCRIPTS_FOLDER + "mysql");
 
             Set<String> prefixedScriptLocations = scriptLocations.stream()
-                    .map(scriptLocation -> "classpath:" + scriptLocation).collect(Collectors.toSet());
+                .map(scriptLocation -> "classpath:" + scriptLocation).collect(Collectors.toSet());
 
-            flywayConfig.locations(prefixedScriptLocations.toArray(new String[] {}));
+            flywayConfig.locations(prefixedScriptLocations.toArray(new String[]{}));
 
             Flyway flyway = new Flyway(flywayConfig);
             flyway.repair();

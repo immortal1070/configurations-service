@@ -1,18 +1,16 @@
 package com.immortal.configurations.interceptors;
 
-import java.util.Arrays;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.immortal.configurations.util.ObjectMapperFactory;
+import org.jboss.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.ws.rs.ClientErrorException;
-
-import org.jboss.logging.Logger;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.immortal.configurations.util.ObjectMapperFactory;
+import java.util.Arrays;
 
 /**
  * Logging method calls with JSON parse of the parameters.
@@ -23,29 +21,23 @@ import com.immortal.configurations.util.ObjectMapperFactory;
 @Interceptor
 @Logged(logClientErrorException = false)
 @Priority(Interceptor.Priority.LIBRARY_BEFORE)
-public class LoggedInterceptor
-{
+public class LoggedInterceptor {
     private static final ObjectMapper mapper = ObjectMapperFactory.createObjectMapper();
     private final static String METHOD_CALLED = "Method Called: ";
 
     @AroundInvoke
-    public Object log(InvocationContext context) throws Exception
-    {
+    public Object log(InvocationContext context) throws Exception {
         Logger logger = Logger.getLogger(context.getTarget().getClass());
 
         Logged loggedAnnotation = getLoggerAnnotation(context);
 
         boolean methodWasLogged = logMethod(loggedAnnotation, logger, context);
 
-        try
-        {
+        try {
             return context.proceed();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             if (!methodWasLogged && logger.isInfoEnabled() && (loggedAnnotation == null || loggedAnnotation
-                    .logClientErrorException() || !ClientErrorException.class.isAssignableFrom(e.getClass())))
-            {
+                .logClientErrorException() || !ClientErrorException.class.isAssignableFrom(e.getClass()))) {
                 logger.info(buildMethodLog(context, "Exception " + e.getClass().getName() + " was caused by method: "));
             }
 
@@ -53,26 +45,20 @@ public class LoggedInterceptor
         }
     }
 
-    private boolean logMethod(final Logged loggedAnnotation, final Logger logger, final InvocationContext context)
-    {
+    private boolean logMethod(final Logged loggedAnnotation, final Logger logger, final InvocationContext context) {
         boolean methodWasLogged = false;
         LoggedLevel infoLevel = loggedAnnotation != null ? loggedAnnotation.level() : LoggedLevel.DEBUG;
-        switch (infoLevel)
-        {
-            case INFO:
-            {
-                if (logger.isInfoEnabled())
-                {
+        switch (infoLevel) {
+            case INFO: {
+                if (logger.isInfoEnabled()) {
                     logger.info(buildMethodLog(context, METHOD_CALLED));
                     methodWasLogged = true;
                 }
             }
             break;
             case DEBUG:
-            default:
-            {
-                if (logger.isDebugEnabled())
-                {
+            default: {
+                if (logger.isDebugEnabled()) {
                     logger.debug(buildMethodLog(context, METHOD_CALLED));
                     methodWasLogged = true;
                 }
@@ -82,23 +68,19 @@ public class LoggedInterceptor
         return methodWasLogged;
     }
 
-    private Logged getLoggerAnnotation(final InvocationContext context)
-    {
+    private Logged getLoggerAnnotation(final InvocationContext context) {
         Logged loggedAnnotation = context.getMethod().getAnnotation(Logged.class);
 
-        if (loggedAnnotation == null)
-        {
+        if (loggedAnnotation == null) {
             loggedAnnotation = context.getTarget().getClass().getSuperclass().getAnnotation(Logged.class);
         }
-        if (loggedAnnotation == null)
-        {
+        if (loggedAnnotation == null) {
             loggedAnnotation = context.getTarget().getClass().getAnnotation(Logged.class);
         }
         return loggedAnnotation;
     }
 
-    private String buildMethodLog(final InvocationContext context, final String prefix)
-    {
+    private String buildMethodLog(final InvocationContext context, final String prefix) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(prefix + " ");
@@ -109,18 +91,13 @@ public class LoggedInterceptor
         return stringBuilder.toString();
     }
 
-    private String paramsToString(final Object[] parameters)
-    {
-        if (parameters != null && parameters.length != 0)
-        {
+    private String paramsToString(final Object[] parameters) {
+        if (parameters != null && parameters.length != 0) {
             StringBuilder stringBuilder = new StringBuilder();
             Arrays.asList(parameters).forEach(param -> {
-                try
-                {
+                try {
                     stringBuilder.append(mapper.writeValueAsString(param));
-                }
-                catch (JsonProcessingException e)
-                {
+                } catch (JsonProcessingException e) {
                     stringBuilder.append(param);
                 }
                 stringBuilder.append("\n");

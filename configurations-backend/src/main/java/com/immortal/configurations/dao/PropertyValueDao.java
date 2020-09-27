@@ -1,19 +1,16 @@
 package com.immortal.configurations.dao;
 
-import java.util.UUID;
-
-import javax.transaction.Transactional;
-
 import com.immortal.configurations.entity.PropertyValueEntity;
 import com.immortal.configurations.interceptors.Logged;
 
+import javax.transaction.Transactional;
+import java.util.UUID;
+
 @Logged
 @Transactional
-public class PropertyValueDao extends AbstractDao<PropertyValueEntity, UUID>
-{
+public class PropertyValueDao extends AbstractDao<PropertyValueEntity, UUID> {
     @Override
-    public Class<PropertyValueEntity> getClazz()
-    {
+    public Class<PropertyValueEntity> getClazz() {
         return PropertyValueEntity.class;
     }
 }

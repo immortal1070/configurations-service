@@ -28,35 +28,32 @@ import static com.immortal.configurations.constants.PersistenceConstants.PERSIST
  *
  * @param <T> entity type
  */
-public abstract class AbstractDao<T, I>
-{
-    public abstract Class<T> getClazz();
-
+public abstract class AbstractDao<T, I> {
     @PersistenceContext(unitName = PERSISTENCE_CONTEXT)
     private EntityManager em;
 
-    public EntityManager getEm()
-    {
+    public abstract Class<T> getClazz();
+
+    public EntityManager getEm() {
         return em;
     }
 
-    public SelectCriteria<T> newSelectCriteria()
-    {
+    public SelectCriteria<T> newSelectCriteria() {
         return new SelectCriteria<T>(em, getClazz());
     }
 
-    public UpdateCriteria<T> newUpdateCriteria()
-    {
+    public UpdateCriteria<T> newUpdateCriteria() {
         return new UpdateCriteria<T>(em, getClazz());
     }
 
-    public DeleteCriteria<T> newDeleteCriteria()
-    {
+    public DeleteCriteria<T> newDeleteCriteria() {
         return new DeleteCriteria<T>(em, getClazz());
     }
 
     public void invalidateCache() {
-    };
+    }
+
+    ;
 
 
 //    public JmsDaoManager<T> getJmsDaoManager()
@@ -69,8 +66,7 @@ public abstract class AbstractDao<T, I>
 //        return null;
 //    }
 
-    public T create(final T entity)
-    {
+    public T create(final T entity) {
         getEm().persist(entity);
 //        getEm().flush();
 
@@ -87,25 +83,20 @@ public abstract class AbstractDao<T, I>
         return entity;
     }
 
-    public T create(final Consumer<T> modifier)
-    {
-        try
-        {
+    public T create(final Consumer<T> modifier) {
+        try {
             final Constructor<T> defaultConstructor = getClazz().getConstructor();
             final T entity = defaultConstructor.newInstance();
             modifier.accept(entity);
             final T created = create(entity);
             invalidateCache();
             return created;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public T update(final I id, final Consumer<T> modifier)
-    {
+    public T update(final I id, final Consumer<T> modifier) {
         final T entity = findById(id);
 
 //        Object jmsDtoBeforeUpdate = isJmsEnabled() ? getJmsDaoManager().getJmsDtoBeforeUpdate(entity) : null;
@@ -129,25 +120,21 @@ public abstract class AbstractDao<T, I>
         return updatedEntity;
     }
 
-    protected T update(final T entity)
-    {
+    protected T update(final T entity) {
         final T result = getEm().merge(entity);
 //        getEm().flush();
         invalidateCache();
         return result;
     }
 
-    public void deleteById(final I id)
-    {
+    public void deleteById(final I id) {
         final T entity = getEm().find(getClazz(), id);
-        if (entity != null)
-        {
+        if (entity != null) {
             delete(entity);
         }
     }
 
-    public void delete(final T entity)
-    {
+    public void delete(final T entity) {
 //        final Object jmsDtoBeforeDelete = isJmsEnabled() ? getJmsDaoManager().getJmsBeforeDeleteDto(entity) : null;
 //        final Object auditSnapshotBeforeDelete = isAuditEnabled() ?
 //                getAuditDaoManager().entityToSnapshot(entity) :
@@ -172,8 +159,7 @@ public abstract class AbstractDao<T, I>
 //        }
     }
 
-    public int executeNamedQueryUpdate(final String namedQueryName, final Map<String, Object> parameters)
-    {
+    public int executeNamedQueryUpdate(final String namedQueryName, final Map<String, Object> parameters) {
         Set<Entry<String, Object>> rawParameters = parameters.entrySet();
         Query query = getEm().createNamedQuery(namedQueryName);
 
@@ -183,23 +169,19 @@ public abstract class AbstractDao<T, I>
         return updateResult;
     }
 
-    public void refresh(final T entity)
-    {
+    public void refresh(final T entity) {
         getEm().refresh(entity);
     }
 
-    public T getReference(final I id)
-    {
+    public T getReference(final I id) {
         return getEm().getReference(getClazz(), id);
     }
 
-    public T findById(final I id)
-    {
+    public T findById(final I id) {
         return getEm().find(getClazz(), id);
     }
 
-    public List<T> findAll()
-    {
+    public List<T> findAll() {
         CriteriaBuilder cb = getEm().getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(getClazz());
         Root<T> root = cq.from(getClazz());
@@ -207,15 +189,13 @@ public abstract class AbstractDao<T, I>
         return getEm().createQuery(cq).getResultList();
     }
 
-    public boolean exists(final I id)
-    {
+    public boolean exists(final I id) {
         //can't use getReference here, because Hibernate doesn't throw EntityNotFoundException immediately -
         //it's thrown only when getter is called
         return id != null && (getEm().find(getClazz(), id) != null);
     }
 
-    public void clearCache()
-    {
+    public void clearCache() {
         getEm().getEntityManagerFactory().getCache().evict(getClazz());
     }
 
