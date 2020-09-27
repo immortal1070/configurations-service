@@ -1,34 +1,39 @@
 package com.immortal.configurations.validation.validators;
 
-import com.immortal.configurations.dao.PropertyValueDao;
-import com.immortal.configurations.validation.ExistPropertyValue;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
-public class ExistPropertyValueValidator implements ConstraintValidator<ExistPropertyValue, UUID> {
+import com.immortal.configurations.dao.PropertyValueDao;
+import com.immortal.configurations.validation.ExistPropertyValue;
+
+public class ExistPropertyValueValidator implements ConstraintValidator<ExistPropertyValue, UUID>
+{
     @Inject
     private PropertyValueDao dao;
 
     private String defaultMessage;
 
     @Override
-    public void initialize(final ExistPropertyValue constraintAnnotation) {
+    public void initialize(final ExistPropertyValue constraintAnnotation)
+    {
         defaultMessage = constraintAnnotation.message();
     }
 
     @Override
-    public boolean isValid(final UUID id, final ConstraintValidatorContext context) {
-        if (dao.exists(id)) {
+    public boolean isValid(final UUID id, final ConstraintValidatorContext context)
+    {
+        if (dao.exists(id))
+        {
             return true;
         }
 
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(defaultMessage).addPropertyNode(Response.Status.NOT_FOUND.name())
-            .addConstraintViolation();
+                .addConstraintViolation();
 
         return false;
     }

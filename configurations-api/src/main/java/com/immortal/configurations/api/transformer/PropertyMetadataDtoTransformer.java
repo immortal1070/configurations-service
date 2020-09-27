@@ -3,10 +3,13 @@ package com.immortal.configurations.api.transformer;
 import com.immortal.configurations.api.dto.PropertyMetadataDto;
 import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
 
-public class PropertyMetadataDtoTransformer {
+public class PropertyMetadataDtoTransformer
+{
     //To read dto! With id and dates, etc.
-    public PropertyMetadataPersistDto dtoToPersistDto(final PropertyMetadataDto dto) {
-        if (dto == null) {
+    public PropertyMetadataPersistDto dtoToPersistDto(final PropertyMetadataDto dto)
+    {
+        if (dto == null)
+        {
             return null;
         }
 

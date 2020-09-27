@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
 
 @Logged
 @Transactional
-public class PropertyMetadataService {
+public class PropertyMetadataService
+{
     public static final Logger logger = Logger.getLogger(PropertyMetadataService.class.getName());
 
     @Inject
@@ -31,39 +32,48 @@ public class PropertyMetadataService {
     @Inject
     private PropertyMetadataTransformer transformer;
 
-    public boolean exists(final UUID id) {
+    public boolean exists(final UUID id)
+    {
         return dao.exists(id);
     }
 
-    public PropertyMetadataDto findById(final UUID id) {
+    public PropertyMetadataDto findById(final UUID id)
+    {
         return transformer.entityToDto(dao.findById(id));
     }
 
-    public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams) {
+    public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams)
+    {
         return find(searchParams, null);
     }
 
-    public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams, final String graphName) {
+    public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams, final String graphName)
+    {
         return transformer.entitiesToDtos(dao.find(searchParams, graphName));
     }
 
-    public PropertyMetadataDto create(final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto create(final PropertyMetadataPersistDto dto)
+    {
         return transformer.entityToDto(dao.create(transformer.dtoToModifier(dto)));
     }
 
-    public PropertyMetadataDto update(@ExistPropertyMetadata final UUID id, final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto update(@ExistPropertyMetadata final UUID id, final PropertyMetadataPersistDto dto)
+    {
         return transformer.entityToDto(dao.update(id, transformer.dtoToModifier(dto)));
     }
 
-    public PropertyMetadataDto partialUpdate(@ExistPropertyMetadata final UUID id, final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto partialUpdate(@ExistPropertyMetadata final UUID id, final PropertyMetadataPersistDto dto)
+    {
         return transformer.entityToDto(dao.update(id, transformer.dtoToPartialModifier(dto)));
     }
 
-    public void delete(@ExistPropertyMetadata final UUID id) {
+    public void delete(@ExistPropertyMetadata final UUID id)
+    {
         dao.deleteById(id);
     }
 
-    public void delete(final PropertyMetadataSearchParams searchParams) {
+    public void delete(final PropertyMetadataSearchParams searchParams)
+    {
         dao.delete(searchParams);
     }
 
@@ -76,19 +86,21 @@ public class PropertyMetadataService {
      * In the end the group in the database will contain only data from the input parameters.
      */
     public void registerGroup(@ExistConfigMetadata final String configMetadataId,
-                              final PropertyMetadataGroupDto metadataGroup) {
+            final PropertyMetadataGroupDto metadataGroup)
+    {
         final List<PropertyMetadataEntity> existingPropertiesInGroup = dao.find(new PropertyMetadataSearchParams()
-            .setGroups(Collections.singletonList(metadataGroup.getGroupName())));
+                .setGroups(Collections.singletonList(metadataGroup.getGroupName())));
 
         final List<PropertyMetadataRegisterDto> propertiesToRegister = metadataGroup.getPropertiesMetadatas();
         final Set<String> namesToRegister = propertiesToRegister.stream().map(PropertyMetadataRegisterDto::getName)
-            .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
 
         final Map<String, PropertyMetadataEntity> existingNameToEntity = new HashMap<>();
         final List<UUID> idsToDelete = new ArrayList<>();
         existingPropertiesInGroup.forEach(entity -> {
             existingNameToEntity.put(entity.getName(), entity);
-            if (!namesToRegister.contains(entity.getName())) {
+            if (!namesToRegister.contains(entity.getName()))
+            {
                 idsToDelete.add(entity.getId());
             }
         });
@@ -98,21 +110,25 @@ public class PropertyMetadataService {
         }
 
         propertiesToRegister.forEach(
-            propertyToRegister -> registerProperty(configMetadataId, metadataGroup.getGroupName(),
-                propertyToRegister, existingNameToEntity));
+                propertyToRegister -> registerProperty(configMetadataId, metadataGroup.getGroupName(),
+                        propertyToRegister, existingNameToEntity));
     }
 
     private void registerProperty(final String metadataId, final String group,
-                                  final PropertyMetadataRegisterDto propertyMetadata,
-                                  final Map<String, PropertyMetadataEntity> existingNameToEntity) {
+            final PropertyMetadataRegisterDto propertyMetadata,
+            final Map<String, PropertyMetadataEntity> existingNameToEntity)
+    {
         final PropertyMetadataEntity existing = existingNameToEntity.get(propertyMetadata.getName());
 
         final Consumer<PropertyMetadataEntity> modifier = transformer
-            .dtoToModifier(metadataId, group, propertyMetadata);
+                .dtoToModifier(metadataId, group, propertyMetadata);
 
-        if (existing != null) {
+        if (existing != null)
+        {
             dao.update(existing.getId(), modifier);
-        } else {
+        }
+        else
+        {
             dao.create(modifier);
         }
     }

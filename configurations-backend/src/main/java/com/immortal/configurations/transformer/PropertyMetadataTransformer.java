@@ -1,28 +1,32 @@
 package com.immortal.configurations.transformer;
 
-import com.immortal.configurations.api.dto.PropertyMetadataDto;
-import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
-import com.immortal.configurations.api.dto.PropertyMetadataRegisterDto;
-import com.immortal.configurations.dao.ConfigMetadataDao;
-import com.immortal.configurations.entity.ConfigMetadataEntity;
-import com.immortal.configurations.entity.PropertyMetadataEntity;
-import org.apache.commons.collections4.CollectionUtils;
+import static com.immortal.configurations.api.dto.PropertyMetadataPersistDto.Fields.CONFIG_METADATA_ID;
+import static com.immortal.configurations.api.dto.PropertyMetadataPersistDto.Fields.GROUP;
+import static com.immortal.configurations.api.dto.PropertyMetadataRegisterDto.Fields.*;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.immortal.configurations.api.dto.PropertyMetadataPersistDto.Fields.CONFIG_METADATA_ID;
-import static com.immortal.configurations.api.dto.PropertyMetadataPersistDto.Fields.GROUP;
-import static com.immortal.configurations.api.dto.PropertyMetadataRegisterDto.Fields.*;
+import javax.inject.Inject;
 
-public class PropertyMetadataTransformer {
+import com.immortal.configurations.entity.ConfigMetadataEntity;
+import org.apache.commons.collections4.CollectionUtils;
+
+import com.immortal.configurations.api.dto.PropertyMetadataDto;
+import com.immortal.configurations.api.dto.PropertyMetadataPersistDto;
+import com.immortal.configurations.api.dto.PropertyMetadataRegisterDto;
+import com.immortal.configurations.dao.ConfigMetadataDao;
+import com.immortal.configurations.entity.PropertyMetadataEntity;
+
+public class PropertyMetadataTransformer
+{
     @Inject
     private ConfigMetadataDao configMetadataDao;
 
-    private final ModifiersMap<PropertyMetadataEntity, PropertyMetadataPersistDto> modifiersMap = new ModifiersMap<PropertyMetadataEntity, PropertyMetadataPersistDto>() {
+    private final ModifiersMap<PropertyMetadataEntity, PropertyMetadataPersistDto> modifiersMap = new ModifiersMap<PropertyMetadataEntity, PropertyMetadataPersistDto>()
+    {
         {
             put(NAME, (entity, dto) -> entity.setName(dto.getName()));
             put(TYPE, (entity, dto) -> entity.setType(dto.getType()));
@@ -30,16 +34,18 @@ public class PropertyMetadataTransformer {
             put(POSSIBLE_VALUES, (entity, dto) -> entity.setPossibleValues(dto.getPossibleValues()));
             put(TAGS, (entity, dto) -> entity.setTags(dto.getTags()));
             put(CONFIG_METADATA_ID,
-                (entity, dto) -> {
-                    ConfigMetadataEntity configMetadata = configMetadataDao.findById(dto.getConfigMetadataId());
-                    entity.setConfigMetadata(configMetadata);
-                });
+                    (entity, dto) -> {
+                        ConfigMetadataEntity configMetadata = configMetadataDao.findById(dto.getConfigMetadataId());
+                        entity.setConfigMetadata(configMetadata);
+                    });
             put(GROUP, (entity, dto) -> entity.setGroup(dto.getGroup()));
         }
     };
 
-    public PropertyMetadataDto entityToDto(final PropertyMetadataEntity entity) {
-        if (entity == null) {
+    public PropertyMetadataDto entityToDto(final PropertyMetadataEntity entity)
+    {
+        if (entity == null)
+        {
             return null;
         }
 
@@ -58,27 +64,32 @@ public class PropertyMetadataTransformer {
         return dto;
     }
 
-    public List<PropertyMetadataDto> entitiesToDtos(final List<PropertyMetadataEntity> entities) {
-        if (CollectionUtils.isEmpty(entities)) {
+    public List<PropertyMetadataDto> entitiesToDtos(final List<PropertyMetadataEntity> entities)
+    {
+        if (CollectionUtils.isEmpty(entities))
+        {
             return Collections.emptyList();
         }
 
         return entities.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 
-    public Consumer<PropertyMetadataEntity> dtoToModifier(final PropertyMetadataPersistDto dto) {
+    public Consumer<PropertyMetadataEntity> dtoToModifier(final PropertyMetadataPersistDto dto)
+    {
         return modifiersMap.dtoToModifier(dto, false);
     }
 
-    public Consumer<PropertyMetadataEntity> dtoToPartialModifier(final PropertyMetadataPersistDto dto) {
+    public Consumer<PropertyMetadataEntity> dtoToPartialModifier(final PropertyMetadataPersistDto dto)
+    {
         return modifiersMap.dtoToModifier(dto, true);
     }
 
     public Consumer<PropertyMetadataEntity> dtoToModifier(final String configMetadataId,
-                                                          final String group,
-                                                          final PropertyMetadataRegisterDto propertyMetadata) {
+            final String group,
+            final PropertyMetadataRegisterDto propertyMetadata)
+    {
         PropertyMetadataPersistDto persistDto = new PropertyMetadataPersistDto(propertyMetadata)
-            .setGroup(group).setConfigMetadataId(configMetadataId);
+                .setGroup(group).setConfigMetadataId(configMetadataId);
         return modifiersMap.dtoToModifier(persistDto, true);
     }
 

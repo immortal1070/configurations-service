@@ -27,7 +27,7 @@ BEGIN
         ALTER TABLE property_metadata
             ADD CONSTRAINT FK_PROPERTY_CONFIG_METADATA
                 FOREIGN KEY (config_metadata_id)
-                    REFERENCES config_metadata (id);
+                    REFERENCES config_metadata(id);
 
         CREATE INDEX CREATE_DATE ON property_metadata (CREATE_DATE);
         CREATE INDEX UPDATE_DATE ON property_metadata (UPDATE_DATE);

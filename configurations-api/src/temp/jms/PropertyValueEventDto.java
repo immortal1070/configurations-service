@@ -2,7 +2,8 @@ package com.immortal.configurations.api.jms;
 
 import java.io.Serializable;
 
-public class PropertyValueEventDto implements Serializable {
+public class PropertyValueEventDto implements Serializable
+{
     private UUID id;
 
     private ZonedDateTime createDate;
@@ -17,59 +18,73 @@ public class PropertyValueEventDto implements Serializable {
 
     private boolean deleted;
 
-    public UUID getId() {
+    public UUID getId()
+    {
         return id;
     }
 
-    public void setId(final UUID id) {
+    public void setId(final UUID id)
+    {
         this.id = id;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public ZonedDateTime getCreateDate()
+    {
         return createDate;
     }
 
-    public void setCreateDate(final ZonedDateTime createDate) {
+    public void setCreateDate(final ZonedDateTime createDate)
+    {
         this.createDate = createDate;
     }
 
-    public ZonedDateTime getUpdateDate() {
+    public ZonedDateTime getUpdateDate()
+    {
         return updateDate;
     }
 
-    public void setUpdateDate(final ZonedDateTime updateDate) {
+    public void setUpdateDate(final ZonedDateTime updateDate)
+    {
         this.updateDate = updateDate;
     }
 
-    public ConfigInstanceEntity getConfigurationInstance() {
+    public ConfigInstanceEntity getConfigurationInstance()
+    {
         return configInstance;
     }
 
-    public void setConfigurationInstance(final ConfigInstanceEntity configInstance) {
+    public void setConfigurationInstance(final ConfigInstanceEntity configInstance)
+    {
         this.configInstance = configInstance;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(final String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 
-    public String getValue() {
+    public String getValue()
+    {
         return value;
     }
 
-    public void setValue(final String value) {
+    public void setValue(final String value)
+    {
         this.value = value;
     }
 
-    public boolean getDeleted() {
+    public boolean getDeleted()
+    {
         return deleted;
     }
 
-    public void setDeleted(final boolean deleted) {
+    public void setDeleted(final boolean deleted)
+    {
         this.deleted = deleted;
     }
 

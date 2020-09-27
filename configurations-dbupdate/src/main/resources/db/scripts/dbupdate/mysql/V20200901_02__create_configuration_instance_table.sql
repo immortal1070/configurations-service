@@ -23,7 +23,7 @@ BEGIN
         ALTER TABLE config_instance
             ADD CONSTRAINT FK_CONFIG_METADATA
                 FOREIGN KEY (config_metadata_id)
-                    REFERENCES config_metadata (id);
+                    REFERENCES config_metadata(id);
 
         CREATE INDEX CREATE_DATE ON config_instance (CREATE_DATE);
         CREATE INDEX UPDATE_DATE ON config_instance (UPDATE_DATE);

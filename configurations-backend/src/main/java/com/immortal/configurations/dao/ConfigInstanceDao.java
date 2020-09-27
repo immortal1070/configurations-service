@@ -1,16 +1,19 @@
 package com.immortal.configurations.dao;
 
+import java.util.UUID;
+
+import javax.transaction.Transactional;
+
 import com.immortal.configurations.entity.ConfigInstanceEntity;
 import com.immortal.configurations.interceptors.Logged;
 
-import javax.transaction.Transactional;
-import java.util.UUID;
-
 @Logged
 @Transactional
-public class ConfigInstanceDao extends AbstractDao<ConfigInstanceEntity, UUID> {
+public class ConfigInstanceDao extends AbstractDao<ConfigInstanceEntity, UUID>
+{
     @Override
-    public Class<ConfigInstanceEntity> getClazz() {
+    public Class<ConfigInstanceEntity> getClazz()
+    {
         return ConfigInstanceEntity.class;
     }
 }
