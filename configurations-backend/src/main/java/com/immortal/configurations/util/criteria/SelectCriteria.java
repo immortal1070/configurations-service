@@ -1,10 +1,9 @@
 package com.immortal.configurations.util.criteria;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import java.util.List;
 
 public class SelectCriteria<T> extends AbstractCriteria<T>
 {
@@ -24,22 +23,6 @@ public class SelectCriteria<T> extends AbstractCriteria<T>
         cq.where(cb.and(criterias.toArray(new Predicate[0])));
         cq.select(root);
 
-        return em.createQuery(cq).getResultList();
+        return createQuery(cq).getResultList();
     }
-//
-//    public SelectCriteria<T> inCollection(final SingularAttribute<T, String> attribute, final List<String> collection)
-//    {
-//        if (CollectionUtils.isNotEmpty(collection))
-//        {
-//            if (collection.size() == 1)
-//            {
-//                criterias.add(cb.equal(root.get(attribute), collection.get(0)));
-//            }
-//            else
-//            {
-//                criterias.add(root.get(attribute).in(collection));
-//            }
-//        }
-//        return this;
-//    }
 }

@@ -26,8 +26,8 @@ public class ConfigMetadataEntity implements Serializable
     @Column(name = ID_COLUMN, nullable = false, updatable = false)
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = ID_COLUMN, nullable = false, insertable = false, updatable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "configMetadata",
+        orphanRemoval = true)
     private List<PropertyMetadataEntity> propertyMetadatas;
 
     @Column(name = "create_date", nullable = false, updatable = false)

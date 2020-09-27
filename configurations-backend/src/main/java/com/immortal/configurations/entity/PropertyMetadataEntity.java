@@ -1,5 +1,6 @@
 package com.immortal.configurations.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.immortal.configurations.entity.converters.StringListConverter;
 import com.immortal.configurations.util.DateUtil;
 import org.hibernate.annotations.*;
@@ -20,12 +21,18 @@ import static com.immortal.configurations.constants.PersistenceConstants.UUID_GE
 @Table(name = PropertyMetadataEntity.TABLE_NAME)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@NamedEntityGraph(name = PropertyMetadataEntity.Graphs.TAGS,
+    attributeNodes = @NamedAttributeNode("tags"))
 public class PropertyMetadataEntity implements Serializable {
     public static final String ENTITY_NAME = "PropertyMetadata";
     public static final String TABLE_NAME = "property_metadata";
 
-    interface Columns {
+    public interface Columns {
         String CONFIG_METADATA_ID = "config_metadata_id";
+    }
+
+    public interface Graphs {
+        String TAGS = "graph." + ENTITY_NAME + ".tags";
     }
 
     @Id
@@ -35,7 +42,7 @@ public class PropertyMetadataEntity implements Serializable {
     private UUID id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.CONFIG_METADATA_ID, nullable = false, updatable = false)
+    @JoinColumn(name = Columns.CONFIG_METADATA_ID)
     private ConfigMetadataEntity configMetadata;
 
     /**

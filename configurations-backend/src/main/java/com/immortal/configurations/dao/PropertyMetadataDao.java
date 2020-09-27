@@ -1,10 +1,5 @@
 package com.immortal.configurations.dao;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.transaction.Transactional;
-
 import com.immortal.configurations.api.params.PropertyMetadataSearchParams;
 import com.immortal.configurations.entity.PropertyMetadataEntity;
 import com.immortal.configurations.entity.PropertyMetadataEntity_;
@@ -13,32 +8,36 @@ import com.immortal.configurations.util.criteria.AbstractCriteria;
 import com.immortal.configurations.util.criteria.DeleteCriteria;
 import com.immortal.configurations.util.criteria.SelectCriteria;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
+
 @Logged
 @Transactional
-public class PropertyMetadataDao extends AbstractDao<PropertyMetadataEntity, UUID>
-{
+public class PropertyMetadataDao extends AbstractDao<PropertyMetadataEntity, UUID> {
     @Override
-    public Class<PropertyMetadataEntity> getClazz()
-    {
+    public Class<PropertyMetadataEntity> getClazz() {
         return PropertyMetadataEntity.class;
     }
 
-    public List<PropertyMetadataEntity> find(final PropertyMetadataSearchParams searchParams)
-    {
+    public List<PropertyMetadataEntity> find(final PropertyMetadataSearchParams searchParams) {
+        return find(searchParams, null);
+    }
+
+    public List<PropertyMetadataEntity> find(final PropertyMetadataSearchParams searchParams, final String graphName) {
         final SelectCriteria<PropertyMetadataEntity> criteriaHelper = newSelectCriteria();
         fillSearchCriterias(criteriaHelper, searchParams);
+        criteriaHelper.addGraph(graphName);
         return criteriaHelper.select();
     }
 
-    public void delete(final PropertyMetadataSearchParams searchParams)
-    {
+    public void delete(final PropertyMetadataSearchParams searchParams) {
         final DeleteCriteria<PropertyMetadataEntity> criteriaHelper = newDeleteCriteria();
         fillSearchCriterias(criteriaHelper, searchParams);
         criteriaHelper.delete();
     }
 
-    private void fillSearchCriterias(final AbstractCriteria<PropertyMetadataEntity> criteriaHelper, final PropertyMetadataSearchParams searchParams)
-    {
+    private void fillSearchCriterias(final AbstractCriteria<PropertyMetadataEntity> criteriaHelper, final PropertyMetadataSearchParams searchParams) {
         criteriaHelper.inCollection(PropertyMetadataEntity_.group, searchParams.getGroups());
         criteriaHelper.inCollection(PropertyMetadataEntity_.name, searchParams.getNames());
         criteriaHelper.inCollection(PropertyMetadataEntity_.id, searchParams.getIds());

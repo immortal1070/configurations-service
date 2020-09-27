@@ -72,7 +72,7 @@ public abstract class AbstractDao<T, I>
     public T create(final T entity)
     {
         getEm().persist(entity);
-        getEm().flush();
+//        getEm().flush();
 
 //        if (isJmsEnabled())
 //        {
@@ -132,7 +132,7 @@ public abstract class AbstractDao<T, I>
     protected T update(final T entity)
     {
         final T result = getEm().merge(entity);
-        getEm().flush();
+//        getEm().flush();
         invalidateCache();
         return result;
     }
@@ -158,7 +158,7 @@ public abstract class AbstractDao<T, I>
 //                null;
 
         getEm().remove(entity);
-        getEm().flush();
+//        getEm().flush();
 
         invalidateCache();
 

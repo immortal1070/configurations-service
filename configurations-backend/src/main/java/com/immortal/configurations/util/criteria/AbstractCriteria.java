@@ -1,23 +1,35 @@
 package com.immortal.configurations.util.criteria;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
-
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.SingularAttribute;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
+/**
+ * Util class which collects the common logic for select/delete/update criterias.
+ */
 public abstract class AbstractCriteria<T>
 {
+    public static final Logger logger = Logger.getLogger(AbstractCriteria.class.getName());
+
+    private final static String FETCH_GRAPH = "javax.persistence.fetchgraph";
+
     protected CriteriaBuilder cb;
     protected Root<T> root;
     protected List<Predicate> criterias;
     protected EntityManager em;
     protected Class<T> clazz;
+    protected Map<String, Object> hints;
 
     /**
      * marks if select was already executed.
@@ -30,6 +42,7 @@ public abstract class AbstractCriteria<T>
         this.cb = em.getCriteriaBuilder();
         this.criterias = new ArrayList<>();
         this.clazz = clazz;
+        this.hints = new HashMap<>();
     }
 
     public CriteriaBuilder getCb()
@@ -68,6 +81,39 @@ public abstract class AbstractCriteria<T>
         return this;
     }
 
+    public AbstractCriteria<T> addGraph(final String graphName)
+    {
+        if (StringUtils.isNotBlank(graphName)) {
+            EntityGraph<?> graph = this.em.getEntityGraph(graphName);
+            hints.put(FETCH_GRAPH, graph);
+        }
+        return this;
+    }
+
+    public AbstractCriteria<T> addHint(String key, Object value)
+    {
+        hints.put(key, value);
+        return this;
+    }
+
+    public AbstractCriteria<T> addHints(Map<String, Object> hints)
+    {
+        this.hints.putAll(hints);
+        return this;
+    }
+
+    protected Query createQuery(final CriteriaDelete<T> cq) {
+        return fillHints(em.createQuery(cq));
+    }
+
+    protected Query createQuery(final CriteriaUpdate<T> cq) {
+        return fillHints(em.createQuery(cq));
+    }
+
+    protected TypedQuery<T> createQuery(final CriteriaQuery<T> cq) {
+        return fillHints(em.createQuery(cq));
+    }
+
     protected void validateExecuted()
     {
         if (executed)
@@ -80,5 +126,10 @@ public abstract class AbstractCriteria<T>
     protected Predicate getCriteriasJoinedWithAnd()
     {
         return cb.and(criterias.toArray(new Predicate[0]));
+    }
+
+    private <Q extends Query> Q fillHints(final Q query) {
+        hints.forEach(query::setHint);
+        return query;
     }
 }

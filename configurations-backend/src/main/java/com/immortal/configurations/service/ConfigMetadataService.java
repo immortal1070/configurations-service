@@ -64,7 +64,7 @@ public class ConfigMetadataService
         dao.deleteById(id);
     }
 
-    public void register(final ConfigMetadataPersistDto configMetadataPersistDto)
+    public ConfigMetadataDto register(final ConfigMetadataPersistDto configMetadataPersistDto)
     {
         String configMetadataId = configMetadataPersistDto.getId();
         ConfigMetadataDto configMetadataDto = findById(configMetadataId);
@@ -76,5 +76,7 @@ public class ConfigMetadataService
         CollectionUtils.emptyIfNull(configMetadataPersistDto.getPropertyMetadataGroups())
                 .forEach(metadataGroup -> propertyMetadataService
                 .registerGroup(finalConfigMetadataDto.getId(), metadataGroup));
+
+        return transformer.entityToDto(dao.findById(configMetadataDto.getId()));
     }
 }

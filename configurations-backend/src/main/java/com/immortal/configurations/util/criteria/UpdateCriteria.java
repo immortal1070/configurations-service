@@ -20,6 +20,6 @@ public class UpdateCriteria<T> extends AbstractCriteria<T>
 
         cq.where(getCriteriasJoinedWithAnd());
 
-        return em.createQuery(cq).executeUpdate();
+        return createQuery(cq).executeUpdate();
     }
 }

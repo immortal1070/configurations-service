@@ -62,7 +62,7 @@ public interface ConfigMetadataResource
     /**
      * Returns all ConfigMetadata
      *
-     * TODO add paging to get all
+     * TODO add paging to find method
      */
     @GET
     @Path("/")

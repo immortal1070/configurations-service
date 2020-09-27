@@ -26,8 +26,6 @@ public class PropertyMetadataService
 {
     public static final Logger logger = Logger.getLogger(PropertyMetadataService.class.getName());
 
-    private static final int OBJECTS_PER_TRANSACTION = 2000;
-
     @Inject
     private PropertyMetadataDao dao;
 
@@ -46,7 +44,12 @@ public class PropertyMetadataService
 
     public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams)
     {
-        return transformer.entitiesToDtos(dao.find(searchParams));
+        return find(searchParams, null);
+    }
+
+    public List<PropertyMetadataDto> find(final PropertyMetadataSearchParams searchParams, final String graphName)
+    {
+        return transformer.entitiesToDtos(dao.find(searchParams, graphName));
     }
 
     public PropertyMetadataDto create(final PropertyMetadataPersistDto dto)

@@ -21,6 +21,6 @@ public class DeleteCriteria<T> extends AbstractCriteria<T>
 
         cq.where(cb.and(criterias.toArray(new Predicate[0])));
 
-        return em.createQuery(cq).executeUpdate();
+        return createQuery(cq).executeUpdate();
     }
 }
