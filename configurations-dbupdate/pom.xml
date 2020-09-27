@@ -13,7 +13,7 @@
 
     <artifactId>configurations-dbupdate</artifactId>
     <description>DBUpdate Services</description>
-<!--    <packaging>war</packaging>-->
+    <!--    <packaging>war</packaging>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,23 +49,23 @@
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
 
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <artifactId>maven-dependency-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>analyze</id>-->
-<!--                        <goals>-->
-<!--                            <goal>analyze-only</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <failOnWarning>true</failOnWarning>-->
-<!--                            <outputXML>true</outputXML>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
+        <!--        <plugins>-->
+        <!--            <plugin>-->
+        <!--                <artifactId>maven-dependency-plugin</artifactId>-->
+        <!--                <executions>-->
+        <!--                    <execution>-->
+        <!--                        <id>analyze</id>-->
+        <!--                        <goals>-->
+        <!--                            <goal>analyze-only</goal>-->
+        <!--                        </goals>-->
+        <!--                        <configuration>-->
+        <!--                            <failOnWarning>true</failOnWarning>-->
+        <!--                            <outputXML>true</outputXML>-->
+        <!--                        </configuration>-->
+        <!--                    </execution>-->
+        <!--                </executions>-->
+        <!--            </plugin>-->
+        <!--        </plugins>-->
 
         <resources>
             <resource>

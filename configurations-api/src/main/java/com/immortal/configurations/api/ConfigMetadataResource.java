@@ -1,25 +1,18 @@
 package com.immortal.configurations.api;
 
-import static com.immortal.configurations.api.ConfigMetadataResource.Routing.Endpoints.ID_PATH;
-import static com.immortal.configurations.api.ConfigMetadataResource.Routing.SERVICE_PREFIX;
-
-import java.net.HttpURLConnection;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import com.immortal.configurations.api.constants.ConfigurationsMessages;
 import com.immortal.configurations.api.dto.ConfigMetadataDto;
 import com.immortal.configurations.api.dto.ConfigMetadataPersistDto;
 import com.webcohesion.enunciate.metadata.rs.ResponseCode;
 import com.webcohesion.enunciate.metadata.rs.StatusCodes;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.net.HttpURLConnection;
+import java.util.List;
+
+import static com.immortal.configurations.api.ConfigMetadataResource.Routing.Endpoints.ID_PATH;
+import static com.immortal.configurations.api.ConfigMetadataResource.Routing.SERVICE_PREFIX;
 
 /**
  * Service for UI languages (ones with en-US format).
@@ -33,19 +26,16 @@ import com.webcohesion.enunciate.metadata.rs.StatusCodes;
 //@ServiceContextRoot(ConfigurationsConstants.Rest.RootContexts.CONFIGURATIONS)
 //@RestContextRoot(ConfigurationsConstants.Rest.RootContexts.CONFIGURATIONS)
 //@RolesAllowed(JaasRights.MANAGE_CONFIGURATION_METADATA)
-public interface ConfigMetadataResource
-{
-    interface Routing
-    {
+public interface ConfigMetadataResource {
+    interface Routing {
         String SERVICE_PREFIX = "/metadata";
-        interface Endpoints
-        {
+
+        interface Endpoints {
             String ID_PATH = "/{" + Params.ID + "}";
         }
     }
 
-    interface Params
-    {
+    interface Params {
         String ID = "ID";
     }
 
@@ -55,13 +45,13 @@ public interface ConfigMetadataResource
     @GET
     @Path(ID_PATH)
     @Produces(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_OK, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = "entity not found") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_OK, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = "entity not found")})
     ConfigMetadataDto findById(@PathParam(Params.ID) String id);
 
     /**
      * Returns all ConfigMetadata
-     *
+     * <p>
      * TODO add paging to find method
      */
     @GET
@@ -76,8 +66,8 @@ public interface ConfigMetadataResource
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     ConfigMetadataDto register(ConfigMetadataPersistDto configMetadataPersistDto);
 
     /**
@@ -86,7 +76,7 @@ public interface ConfigMetadataResource
     @DELETE
     @Path(ID_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
-    @StatusCodes({ @ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
-            @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed") })
+    @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
+        @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
     void delete(@PathParam(Params.ID) String id);
 }

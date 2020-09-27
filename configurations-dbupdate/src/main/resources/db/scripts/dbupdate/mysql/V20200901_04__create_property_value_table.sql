@@ -12,12 +12,12 @@ BEGIN
     THEN
         CREATE TABLE IF NOT EXISTS property_value
         (
-            id                     BINARY(16) NOT NULL PRIMARY KEY,
+            id                        BINARY(16)   NOT NULL PRIMARY KEY,
             configuration_instance_id BINARY(16)   NOT NULL,
-            name VARCHAR (255) NOT NULL,
-            value                  VARCHAR(255),
-            create_date            DATETIME   NOT NULL,
-            update_date            DATETIME
+            name                      VARCHAR(255) NOT NULL,
+            value                     VARCHAR(255),
+            create_date               DATETIME     NOT NULL,
+            update_date               DATETIME
         ) ENGINE = InnoDB
           DEFAULT CHARSET = utf8;
 

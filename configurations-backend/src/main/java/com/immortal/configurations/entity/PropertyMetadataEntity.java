@@ -1,14 +1,12 @@
 package com.immortal.configurations.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.immortal.configurations.entity.converters.StringListConverter;
 import com.immortal.configurations.util.DateUtil;
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.List;

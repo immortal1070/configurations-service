@@ -1,22 +1,19 @@
 package com.immortal.configurations.transformer;
 
-import static com.immortal.configurations.api.dto.ConfigInstancePersistDto.Fields.NAME;
+import com.immortal.configurations.api.dto.ConfigInstanceDto;
+import com.immortal.configurations.api.dto.ConfigInstancePersistDto;
+import com.immortal.configurations.entity.ConfigInstanceEntity;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections4.CollectionUtils;
+import static com.immortal.configurations.api.dto.ConfigInstancePersistDto.Fields.NAME;
 
-import com.immortal.configurations.api.dto.ConfigInstanceDto;
-import com.immortal.configurations.api.dto.ConfigInstancePersistDto;
-import com.immortal.configurations.entity.ConfigInstanceEntity;
-
-public class ConfigInstanceTransformer
-{
-    private ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto> partialUpdate = new ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto>()
-    {
+public class ConfigInstanceTransformer {
+    private ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto> partialUpdate = new ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto>() {
         {
             put(NAME, (entity, dto) -> entity.setName(dto.getName()));
 
@@ -29,10 +26,8 @@ public class ConfigInstanceTransformer
     };
 
     //To read dto! With id and dates, etc.
-    public ConfigInstanceDto entityToDto(final ConfigInstanceEntity entity)
-    {
-        if (entity == null)
-        {
+    public ConfigInstanceDto entityToDto(final ConfigInstanceEntity entity) {
+        if (entity == null) {
             return null;
         }
 
@@ -53,10 +48,8 @@ public class ConfigInstanceTransformer
         return dto;
     }
 
-    public List<ConfigInstanceDto> entitiesToDtos(final List<ConfigInstanceEntity> entities)
-    {
-        if (CollectionUtils.isEmpty(entities))
-        {
+    public List<ConfigInstanceDto> entitiesToDtos(final List<ConfigInstanceEntity> entities) {
+        if (CollectionUtils.isEmpty(entities)) {
             return Collections.emptyList();
         }
 
@@ -92,13 +85,11 @@ public class ConfigInstanceTransformer
 //        return dto;
 //    }
 
-    public Consumer<ConfigInstanceEntity> dtoToModifier(final ConfigInstancePersistDto dto)
-    {
+    public Consumer<ConfigInstanceEntity> dtoToModifier(final ConfigInstancePersistDto dto) {
         return partialUpdate.dtoToModifier(dto, false);
     }
 
-    public Consumer<ConfigInstanceEntity> dtoToPartialModifier(final ConfigInstancePersistDto dto)
-    {
+    public Consumer<ConfigInstanceEntity> dtoToPartialModifier(final ConfigInstancePersistDto dto) {
         return partialUpdate.dtoToModifier(dto, true);
     }
 }

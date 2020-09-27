@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.immortal.configurations</groupId>
@@ -72,6 +72,26 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--        <dependency>-->
+        <!--            <groupId>jakarta.validation</groupId>-->
+        <!--            <artifactId>jakarta.validation-api</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.hibernate.validator</groupId>-->
+        <!--            <artifactId>hibernate-validator</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jboss.resteasy</groupId>-->
+        <!--            <artifactId>resteasy-validator-provider</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.hibernate.validator</groupId>-->
+        <!--            <artifactId>hibernate-validator-annotation-processor</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
         <!--Test dependencies-->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -168,9 +188,9 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-<!--            <properties>-->
-<!--                <dev></dev>-->
-<!--            </properties>-->
+            <!--            <properties>-->
+            <!--                <dev></dev>-->
+            <!--            </properties>-->
             <build>
                 <plugins>
                     <plugin>
@@ -182,9 +202,9 @@
                                     verify
                                 </phase>
                                 <goals>
-<!--                                    <goal>shutdown</goal>-->
+                                    <!--                                    <goal>shutdown</goal>-->
                                     <goal>dev</goal>
-<!--                                    <goal>package</goal>-->
+                                    <!--                                    <goal>package</goal>-->
                                 </goals>
                             </execution>
                         </executions>
@@ -195,68 +215,68 @@
     </profiles>
 </project>
 
-        <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
-        <!--<version>${version.checkstyle.plugin}</version>-->
-        <!--<configuration>-->
-        <!--  <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>-->
-        <!--  <consoleOutput>true</consoleOutput>-->
-        <!--  <failsOnError>true</failsOnError>-->
-        <!--  <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-        <!--  <excludes>**/*$logger.java,**/*$bundle.java</excludes>-->
-        <!--  <useFile />-->
-        <!--</configuration>-->
-        <!--<dependencies>-->
-        <!--  <dependency>-->
-        <!--    <groupId>org.wildfly.checkstyle</groupId>-->
-        <!--    <artifactId>wildfly-checkstyle-config</artifactId>-->
-        <!--    <version>${version.org.wildfly.checkstyle-config}</version>-->
-        <!--  </dependency>-->
-        <!--</dependencies>-->
-        <!--<executions>-->
-        <!--  <execution>-->
-        <!--    <id>check-style</id>-->
-        <!--    <phase>compile</phase>-->
-        <!--    <goals>-->
-        <!--      <goal>checkstyle</goal>-->
-        <!--    </goals>-->
-        <!--  </execution>-->
-        <!--</executions>-->
-        <!--</plugin>-->
-        <!--        </plugins>-->
-        <!--        </pluginManagement>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.maven.plugins</groupId>-->
+    <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+    <!--<version>${version.checkstyle.plugin}</version>-->
+    <!--<configuration>-->
+    <!--  <configLocation>wildfly-checkstyle/checkstyle.xml</configLocation>-->
+    <!--  <consoleOutput>true</consoleOutput>-->
+    <!--  <failsOnError>true</failsOnError>-->
+    <!--  <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+    <!--  <excludes>**/*$logger.java,**/*$bundle.java</excludes>-->
+    <!--  <useFile />-->
+    <!--</configuration>-->
+    <!--<dependencies>-->
+    <!--  <dependency>-->
+    <!--    <groupId>org.wildfly.checkstyle</groupId>-->
+    <!--    <artifactId>wildfly-checkstyle-config</artifactId>-->
+    <!--    <version>${version.org.wildfly.checkstyle-config}</version>-->
+    <!--  </dependency>-->
+    <!--</dependencies>-->
+    <!--<executions>-->
+    <!--  <execution>-->
+    <!--    <id>check-style</id>-->
+    <!--    <phase>compile</phase>-->
+    <!--    <goals>-->
+    <!--      <goal>checkstyle</goal>-->
+    <!--    </goals>-->
+    <!--  </execution>-->
+    <!--</executions>-->
+    <!--</plugin>-->
+    <!--        </plugins>-->
+    <!--        </pluginManagement>-->
 
-        <!--<plugins>-->
-        <!--<plugin>-->
-        <!--  <groupId>org.apache.maven.plugins</groupId>-->
-        <!--  <artifactId>maven-checkstyle-plugin</artifactId>-->
-        <!--</plugin>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--  <groupId>org.apache.maven.plugins</groupId>-->
+    <!--  <artifactId>maven-checkstyle-plugin</artifactId>-->
+    <!--</plugin>-->
 
-        <!--<plugin>-->
-        <!--  <groupId>org.apache.maven.plugins</groupId>-->
-        <!--  <artifactId>maven-enforcer-plugin</artifactId>-->
-        <!--  <executions>-->
-        <!--    <execution>-->
-        <!--      <id>enforce-java</id>-->
-        <!--      <goals>-->
-        <!--        <goal>enforce</goal>-->
-        <!--      </goals>-->
-        <!--      <configuration>-->
-        <!--        <rules>-->
-        <!--          <requireJavaVersion>-->
-        <!--            <version>1.8</version>-->
-        <!--          </requireJavaVersion>-->
-        <!--        </rules>-->
-        <!--      </configuration>-->
-        <!--    </execution>-->
-        <!--  </executions>-->
-        <!--</plugin>-->
-        <!--</plugins>-->
-        <!--        </build>-->
-        <!--<scm>-->
-        <!--<connection>scm:git:${bootable-jar.repo.scm.connection}</connection>-->
-        <!--<developerConnection>scm:git:${bootable-jar.repo.scm.connection}</developerConnection>-->
-        <!--<url>${bootable-jar.repo.scm.url}</url>-->
-        <!--<tag>HEAD</tag>-->
-        <!--</scm>-->
+    <!--<plugin>-->
+    <!--  <groupId>org.apache.maven.plugins</groupId>-->
+    <!--  <artifactId>maven-enforcer-plugin</artifactId>-->
+    <!--  <executions>-->
+    <!--    <execution>-->
+    <!--      <id>enforce-java</id>-->
+    <!--      <goals>-->
+    <!--        <goal>enforce</goal>-->
+    <!--      </goals>-->
+    <!--      <configuration>-->
+    <!--        <rules>-->
+    <!--          <requireJavaVersion>-->
+    <!--            <version>1.8</version>-->
+    <!--          </requireJavaVersion>-->
+    <!--        </rules>-->
+    <!--      </configuration>-->
+    <!--    </execution>-->
+    <!--  </executions>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--        </build>-->
+    <!--<scm>-->
+    <!--<connection>scm:git:${bootable-jar.repo.scm.connection}</connection>-->
+    <!--<developerConnection>scm:git:${bootable-jar.repo.scm.connection}</developerConnection>-->
+    <!--<url>${bootable-jar.repo.scm.url}</url>-->
+    <!--<tag>HEAD</tag>-->
+    <!--</scm>-->

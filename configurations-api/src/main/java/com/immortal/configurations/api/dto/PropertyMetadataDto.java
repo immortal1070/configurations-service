@@ -1,15 +1,14 @@
 package com.immortal.configurations.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertyMetadataDto implements Serializable
-{
+public class PropertyMetadataDto implements Serializable {
     private UUID id;
 
     private ZonedDateTime createDate;
@@ -30,116 +29,95 @@ public class PropertyMetadataDto implements Serializable
 
     private List<String> tags;
 
-    public PropertyMetadataDto()
-    {
+    public PropertyMetadataDto() {
     }
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
-    public PropertyMetadataDto setId(final UUID id)
-    {
+    public PropertyMetadataDto setId(final UUID id) {
         this.id = id;
         return this;
     }
 
-    public ZonedDateTime getCreateDate()
-    {
+    public ZonedDateTime getCreateDate() {
         return createDate;
     }
 
-    public PropertyMetadataDto setCreateDate(final ZonedDateTime createDate)
-    {
+    public PropertyMetadataDto setCreateDate(final ZonedDateTime createDate) {
         this.createDate = createDate;
         return this;
     }
 
-    public ZonedDateTime getUpdateDate()
-    {
+    public ZonedDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public PropertyMetadataDto setUpdateDate(final ZonedDateTime updateDate)
-    {
+    public PropertyMetadataDto setUpdateDate(final ZonedDateTime updateDate) {
         this.updateDate = updateDate;
         return this;
     }
 
-    public String getConfigMetadataId()
-    {
+    public String getConfigMetadataId() {
         return configMetadataId;
     }
 
-    public PropertyMetadataDto setConfigMetadataId(final String configMetadataId)
-    {
+    public PropertyMetadataDto setConfigMetadataId(final String configMetadataId) {
         this.configMetadataId = configMetadataId;
         return this;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public PropertyMetadataDto setName(final String name)
-    {
+    public PropertyMetadataDto setName(final String name) {
         this.name = name;
         return this;
     }
 
-    public String getGroup()
-    {
+    public String getGroup() {
         return group;
     }
 
-    public PropertyMetadataDto setGroup(final String group)
-    {
+    public PropertyMetadataDto setGroup(final String group) {
         this.group = group;
         return this;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public PropertyMetadataDto setType(final String type)
-    {
+    public PropertyMetadataDto setType(final String type) {
         this.type = type;
         return this;
     }
 
-    public String getDefaultValue()
-    {
+    public String getDefaultValue() {
         return defaultValue;
     }
 
-    public PropertyMetadataDto setDefaultValue(final String defaultValue)
-    {
+    public PropertyMetadataDto setDefaultValue(final String defaultValue) {
         this.defaultValue = defaultValue;
         return this;
     }
 
-    public List<String> getPossibleValues()
-    {
+    public List<String> getPossibleValues() {
         return possibleValues;
     }
 
-    public PropertyMetadataDto setPossibleValues(final List<String> possibleValues)
-    {
+    public PropertyMetadataDto setPossibleValues(final List<String> possibleValues) {
         this.possibleValues = possibleValues;
         return this;
     }
 
-    public List<String> getTags()
-    {
+    public List<String> getTags() {
         return tags;
     }
 
-    public PropertyMetadataDto setTags(final List<String> tags)
-    {
+    public PropertyMetadataDto setTags(final List<String> tags) {
         this.tags = tags;
         return this;
     }

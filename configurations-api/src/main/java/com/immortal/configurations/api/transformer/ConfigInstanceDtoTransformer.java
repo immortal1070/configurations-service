@@ -3,13 +3,10 @@ package com.immortal.configurations.api.transformer;
 import com.immortal.configurations.api.dto.ConfigInstanceDto;
 import com.immortal.configurations.api.dto.ConfigInstancePersistDto;
 
-public class ConfigInstanceDtoTransformer
-{
+public class ConfigInstanceDtoTransformer {
     //To read dto! With id and dates, etc.
-    public ConfigInstancePersistDto dtoToPersistDto(final ConfigInstanceDto dto)
-    {
-        if (dto == null)
-        {
+    public ConfigInstancePersistDto dtoToPersistDto(final ConfigInstanceDto dto) {
+        if (dto == null) {
             return null;
         }
 

@@ -1,18 +1,16 @@
 package com.immortal.configurations.api.params;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.ws.rs.QueryParam;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-import javax.ws.rs.QueryParam;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import static com.immortal.configurations.api.params.PropertyMetadataSearchParams.Params.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertyMetadataSearchParams implements Serializable
-{
+public class PropertyMetadataSearchParams implements Serializable {
     interface Params {
         String GROUP = "group";
         String NAME = "name";
@@ -88,39 +86,32 @@ public class PropertyMetadataSearchParams implements Serializable
 //    @DefaultValue(DbConstants.Sorting.DESC)
 //    String sortDirection;
 
-    public PropertyMetadataSearchParams()
-    {
+    public PropertyMetadataSearchParams() {
     }
 
-    public List<String> getGroups()
-    {
+    public List<String> getGroups() {
         return groups;
     }
 
-    public PropertyMetadataSearchParams setGroups(final List<String> groups)
-    {
+    public PropertyMetadataSearchParams setGroups(final List<String> groups) {
         this.groups = groups;
         return this;
     }
 
-    public List<String> getNames()
-    {
+    public List<String> getNames() {
         return names;
     }
 
-    public PropertyMetadataSearchParams setNames(final List<String> names)
-    {
+    public PropertyMetadataSearchParams setNames(final List<String> names) {
         this.names = names;
         return this;
     }
 
-    public List<UUID> getIds()
-    {
+    public List<UUID> getIds() {
         return ids;
     }
 
-    public PropertyMetadataSearchParams setIds(final List<UUID> ids)
-    {
+    public PropertyMetadataSearchParams setIds(final List<UUID> ids) {
         this.ids = ids;
         return this;
     }
