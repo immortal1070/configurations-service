@@ -12,17 +12,24 @@ BEGIN
     THEN
         CREATE TABLE IF NOT EXISTS property_value
         (
-            id                        BINARY(16)   NOT NULL PRIMARY KEY,
-            configuration_instance_id BINARY(16)   NOT NULL,
-            name                      VARCHAR(255) NOT NULL,
-            value                     VARCHAR(255),
-            create_date               DATETIME     NOT NULL,
-            update_date               DATETIME
+            id                 BINARY(16)   NOT NULL PRIMARY KEY,
+            config_instance_id BINARY(16)   NOT NULL,
+            name               VARCHAR(255) NOT NULL,
+            value              VARCHAR(255),
+            create_date        DATETIME     NOT NULL,
+            update_date        DATETIME
         ) ENGINE = InnoDB
           DEFAULT CHARSET = utf8;
 
-        CREATE INDEX CREATE_DATE ON property_value (CREATE_DATE);
-        CREATE INDEX UPDATE_DATE ON property_value (UPDATE_DATE);
+        ALTER TABLE property_value
+            ADD CONSTRAINT FK_PROPERTY_VALUE_CONFIG_INSTANCE
+                FOREIGN KEY (config_instance_id)
+                    REFERENCES config_instance (id);
+
+        CREATE UNIQUE INDEX PROPERTY_VALUE_UNIQUE ON property_value (config_instance_id, name);
+
+        CREATE INDEX CREATE_DATE ON property_value (create_date);
+        CREATE INDEX UPDATE_DATE ON property_value (update_date);
     END IF;
 
 END //

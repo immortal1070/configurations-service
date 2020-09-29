@@ -29,8 +29,11 @@ BEGIN
                 FOREIGN KEY (config_metadata_id)
                     REFERENCES config_metadata (id);
 
-        CREATE INDEX CREATE_DATE ON property_metadata (CREATE_DATE);
-        CREATE INDEX UPDATE_DATE ON property_metadata (UPDATE_DATE);
+        CREATE UNIQUE INDEX PROPERTY_METADATA_UNIQUE ON property_metadata (config_metadata_id, name);
+
+        CREATE INDEX CREATE_DATE ON property_metadata (create_date);
+        CREATE INDEX UPDATE_DATE ON property_metadata (update_date);
+        CREATE INDEX CONFIG_METADATA_ID ON property_metadata (config_metadata_id);
     END IF;
 
 END //

@@ -22,6 +22,9 @@ BEGIN
             ADD CONSTRAINT FK_PROPERTY_METADATA_TAGS_TO_PROPERTY
                 FOREIGN KEY (property_metadata_id)
                     REFERENCES property_metadata (id) ON DELETE CASCADE;
+
+        CREATE INDEX PROPERTY_METADATA_ID ON property_metadata_tags (property_metadata_id);
+        CREATE INDEX TAG ON property_metadata_tags (tag);
     END IF;
 
 END //

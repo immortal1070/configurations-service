@@ -18,8 +18,8 @@ BEGIN
         ) ENGINE = InnoDB
           DEFAULT CHARSET = utf8;
 
-        CREATE INDEX CREATE_DATE ON config_metadata (CREATE_DATE);
-        CREATE INDEX UPDATE_DATE ON config_metadata (UPDATE_DATE);
+        CREATE INDEX CREATE_DATE ON config_metadata (create_date);
+        CREATE INDEX UPDATE_DATE ON config_metadata (update_date);
     END IF;
 
 END //

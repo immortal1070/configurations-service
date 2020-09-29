@@ -25,8 +25,8 @@ BEGIN
                 FOREIGN KEY (config_metadata_id)
                     REFERENCES config_metadata (id);
 
-        CREATE INDEX CREATE_DATE ON config_instance (CREATE_DATE);
-        CREATE INDEX UPDATE_DATE ON config_instance (UPDATE_DATE);
+        CREATE INDEX CREATE_DATE ON config_instance (create_date);
+        CREATE INDEX UPDATE_DATE ON config_instance (update_date);
     END IF;
 
 END //
