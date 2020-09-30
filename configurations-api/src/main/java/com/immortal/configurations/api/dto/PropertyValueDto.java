@@ -14,7 +14,7 @@ public class PropertyValueDto implements Serializable {
 
     private ZonedDateTime updateDate;
 
-    private ConfigInstanceDto configInstance;
+    private UUID configInstanceId;
 
     private String name;
 
@@ -50,12 +50,12 @@ public class PropertyValueDto implements Serializable {
         return this;
     }
 
-    public ConfigInstanceDto getConfigInstance() {
-        return configInstance;
+    public UUID getConfigInstanceId() {
+        return configInstanceId;
     }
 
-    public PropertyValueDto setConfigInstance(final ConfigInstanceDto configInstance) {
-        this.configInstance = configInstance;
+    public PropertyValueDto setConfigInstanceId(final UUID configInstanceId) {
+        this.configInstanceId = configInstanceId;
         return this;
     }
 

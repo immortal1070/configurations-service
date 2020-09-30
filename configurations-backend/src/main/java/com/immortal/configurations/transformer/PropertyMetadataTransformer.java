@@ -81,41 +81,4 @@ public class PropertyMetadataTransformer {
             .setGroup(group).setConfigMetadataId(configMetadataId);
         return modifiersMap.dtoToModifier(persistDto, true);
     }
-
-    //    public PropertyMetadataEventDto entityToJmsDto(final PropertyMetadataEntity entity)
-    //    {
-    //        return entityToJmsDto(entity, new PropertyMetadataEventDto());
-    //    }
-    //
-    //    public <T extends PropertyMetadataEventDto> T entityToJmsDto(final PropertyMetadataEntity entity, final T dto)
-    //    {
-    //        if (entity == null)
-    //        {
-    //            return null;
-    //        }
-    //
-    //        dto.setId(entity.getId());
-    //
-    //        dto.setCreateDate(entity.getCreateDate());
-    //
-    //        dto.setUpdateDate(entity.getUpdateDate());
-    //
-    //        dto.setConfigMetadata(entity.getConfigMetadata());
-    //
-    //        dto.setName(entity.getName());
-    //
-    //        dto.setGroup(entity.getGroup());
-    //
-    //        dto.setType(entity.getType());
-    //
-    //        dto.setDefaultValue(entity.getDefaultValue());
-    //
-    //        dto.setPossibleValues(entity.getPossibleValues());
-    //
-    //        dto.setTags(entity.getTags());
-    //
-    //        dto.setDeleted(entity.getDeleted());
-    //
-    //        return dto;
-    //    }
 }

@@ -1,5 +1,6 @@
 package com.immortal.configurations.entity;
 
+import com.immortal.configurations.constants.PersistenceConstants;
 import com.immortal.configurations.util.DateUtil;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,10 +28,13 @@ public class ConfigMetadataEntity implements Serializable {
         orphanRemoval = true)
     private List<PropertyMetadataEntity> propertyMetadatas;
 
-    @Column(name = "create_date", nullable = false, updatable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "configMetadata")
+    private List<ConfigInstanceEntity> configInstances;
+
+    @Column(name = PersistenceConstants.CREATE_DATE_COLUMN, nullable = false, updatable = false)
     private ZonedDateTime createDate;
 
-    @Column(name = "update_date", insertable = false)
+    @Column(name = PersistenceConstants.UPDATE_DATE_COLUMN, insertable = false)
     private ZonedDateTime updateDate;
 
     public ConfigMetadataEntity() {
@@ -80,5 +84,14 @@ public class ConfigMetadataEntity implements Serializable {
 
     public void setPropertyMetadatas(final List<PropertyMetadataEntity> propertyMetadatas) {
         this.propertyMetadatas = propertyMetadatas;
+    }
+
+    public List<ConfigInstanceEntity> getConfigInstances() {
+        return configInstances;
+    }
+
+    public ConfigMetadataEntity setConfigInstances(final List<ConfigInstanceEntity> configInstances) {
+        this.configInstances = configInstances;
+        return this;
     }
 }

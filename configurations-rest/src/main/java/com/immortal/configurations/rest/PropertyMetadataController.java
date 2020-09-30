@@ -8,6 +8,7 @@ import com.immortal.configurations.interceptors.Logged;
 import com.immortal.configurations.service.PropertyMetadataService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,18 +28,18 @@ public class PropertyMetadataController implements PropertyMetadataResource {
     }
 
     @Override
-    public PropertyMetadataDto create(final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto create(@Valid final PropertyMetadataPersistDto dto) {
         final PropertyMetadataDto created = service.create(dto);
         return service.findById(created.getId());
     }
 
     @Override
-    public PropertyMetadataDto update(final UUID id, final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto update(final UUID id, @Valid final PropertyMetadataPersistDto dto) {
         return service.update(id, dto);
     }
 
     @Override
-    public PropertyMetadataDto partialUpdate(final UUID id, final PropertyMetadataPersistDto dto) {
+    public PropertyMetadataDto partialUpdate(final UUID id, @Valid final PropertyMetadataPersistDto dto) {
         return service.partialUpdate(id, dto);
     }
 

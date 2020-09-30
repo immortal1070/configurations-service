@@ -3,7 +3,11 @@ package com.immortal.configurations.api.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.immortal.configurations.api.constants.ConfigurationsMessages;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
@@ -23,8 +27,10 @@ public class ConfigMetadataPersistDto implements PartialUpdateDto, Serializable 
     @JsonIgnore
     protected final Set<String> receivedFields = new HashSet<>();
 
+    @Size(max = 255, message = ConfigurationsMessages.MAX_LENGTH)
     private String id;
 
+//    @Valid TODO test if needed
     private List<PropertyMetadataGroupDto> propertyMetadataGroups;
 
     public ConfigMetadataPersistDto() {

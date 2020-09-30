@@ -1,5 +1,6 @@
 package com.immortal.configurations.entity;
 
+import com.immortal.configurations.constants.PersistenceConstants;
 import com.immortal.configurations.util.DateUtil;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,6 +22,10 @@ public class PropertyValueEntity implements Serializable {
     public static final String ENTITY_NAME = "PropertyValue";
     public static final String TABLE_NAME = "property_value";
 
+    public interface Columns {
+        String CONFIG_INSTANCE_ID = "config_instance_id";
+    }
+
     @Id
     @Column(name = ID_COLUMN)
     @GenericGenerator(name = UUID_GENERATOR_TYPE, strategy = UUID_GENERATOR_TYPE)
@@ -28,8 +33,14 @@ public class PropertyValueEntity implements Serializable {
     private UUID id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "config_instance_id", nullable = false, updatable = false)
+    @JoinColumn(name = Columns.CONFIG_INSTANCE_ID, nullable = false)
     private ConfigInstanceEntity configInstance;
+
+    /**
+     * for optimization, so you don't need to lazy load or join to config_metadata table when it's not needed.
+     */
+    @Column(name = Columns.CONFIG_INSTANCE_ID, insertable = false, updatable = false, nullable = false)
+    private UUID configInstanceId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -37,10 +48,10 @@ public class PropertyValueEntity implements Serializable {
     @Column(name = "value")
     private String value;
 
-    @Column(name = "create_date", nullable = false, updatable = false)
+    @Column(name = PersistenceConstants.CREATE_DATE_COLUMN, nullable = false, updatable = false)
     private ZonedDateTime createDate;
 
-    @Column(name = "update_date", insertable = false)
+    @Column(name = PersistenceConstants.UPDATE_DATE_COLUMN, insertable = false)
     private ZonedDateTime updateDate;
 
     public PropertyValueEntity() {
@@ -80,12 +91,20 @@ public class PropertyValueEntity implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public ConfigInstanceEntity getConfigurationInstance() {
+    public ConfigInstanceEntity getConfigInstance() {
         return configInstance;
     }
 
-    public void setConfigurationInstance(final ConfigInstanceEntity configInstance) {
+    public void setConfigInstance(final ConfigInstanceEntity configInstance) {
         this.configInstance = configInstance;
+    }
+
+    public UUID getConfigInstanceId() {
+        return configInstanceId;
+    }
+
+    public void setConfigInstanceId(final UUID configInstanceId) {
+        this.configInstanceId = configInstanceId;
     }
 
     public String getName() {

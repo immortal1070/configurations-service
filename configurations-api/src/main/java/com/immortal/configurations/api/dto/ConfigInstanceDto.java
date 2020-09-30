@@ -17,7 +17,7 @@ public class ConfigInstanceDto implements Serializable {
 
     private String name;
 
-    private ConfigMetadataDto configMetadata;
+    private String configMetadataId;
 
     private List<PropertyValueDto> propertyValues;
 
@@ -60,12 +60,12 @@ public class ConfigInstanceDto implements Serializable {
         return this;
     }
 
-    public ConfigMetadataDto getConfigMetadata() {
-        return configMetadata;
+    public String getConfigMetadataId() {
+        return configMetadataId;
     }
 
-    public ConfigInstanceDto setConfigMetadata(final ConfigMetadataDto configMetadata) {
-        this.configMetadata = configMetadata;
+    public ConfigInstanceDto setConfigMetadataId(final String configMetadataId) {
+        this.configMetadataId = configMetadataId;
         return this;
     }
 

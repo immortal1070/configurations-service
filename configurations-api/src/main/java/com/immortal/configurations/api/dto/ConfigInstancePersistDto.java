@@ -15,15 +15,14 @@ import java.util.Set;
 
 import static com.immortal.configurations.api.dto.ConfigInstancePersistDto.Fields.*;
 
+//TODO add  smart   @NotBlank validator which checks received fields
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConfigInstancePersistDto implements PartialUpdateDto, Serializable {
     public interface Fields {
         String NAME = "name";
-
-        String CONFIG_METADATA = "configMetadata";
-
+        String CONFIG_METADATA_ID = "configMetadataId";
         String PROPERTY_VALUES = "propertyValues";
     }
 
@@ -33,9 +32,9 @@ public class ConfigInstancePersistDto implements PartialUpdateDto, Serializable 
     @Size(max = 255, message = ConfigurationsMessages.MAX_LENGTH)
     private String name;
 
-    private ConfigMetadataDto configMetadata;
+    private String configMetadataId;
 
-    private List<PropertyValueDto> propertyValues;
+    private List<PropertyValuePersistDto> propertyValues;
 
     public ConfigInstancePersistDto() {
     }
@@ -44,27 +43,30 @@ public class ConfigInstancePersistDto implements PartialUpdateDto, Serializable 
         return name;
     }
 
-    public void setName(final String name) {
+    public ConfigInstancePersistDto setName(final String name) {
         receivedFields.add(NAME);
         this.name = name;
+        return this;
     }
 
-    public ConfigMetadataDto getConfigMetadata() {
-        return configMetadata;
+    public String getConfigMetadataId() {
+        return configMetadataId;
     }
 
-    public void setConfigMetadata(final ConfigMetadataDto configMetadata) {
-        receivedFields.add(CONFIG_METADATA);
-        this.configMetadata = configMetadata;
+    public ConfigInstancePersistDto setConfigMetadataId(final String configMetadataId) {
+        receivedFields.add(CONFIG_METADATA_ID);
+        this.configMetadataId = configMetadataId;
+        return this;
     }
 
-    public List<PropertyValueDto> getPropertyValues() {
+    public List<PropertyValuePersistDto> getPropertyValues() {
         return propertyValues;
     }
 
-    public void setPropertyValues(final List<PropertyValueDto> propertyValues) {
+    public ConfigInstancePersistDto setPropertyValues(final List<PropertyValuePersistDto> propertyValues) {
         receivedFields.add(PROPERTY_VALUES);
         this.propertyValues = propertyValues;
+        return this;
     }
 
     public Set<String> getReceivedFields() {

@@ -15,7 +15,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 
     @Override
     public String convertToDatabaseColumn(List<String> stringList) {
-        if (CollectionUtils.isNotEmpty(stringList)) {
+        if (CollectionUtils.isEmpty(stringList)) {
             return null;
         }
         return StringUtils.join(stringList, SPLIT_CHAR);

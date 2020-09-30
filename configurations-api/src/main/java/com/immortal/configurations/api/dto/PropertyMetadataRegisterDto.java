@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.immortal.configurations.api.constants.ConfigurationsMessages;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,18 +20,11 @@ import static com.immortal.configurations.api.dto.PropertyMetadataRegisterDto.Fi
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PropertyMetadataRegisterDto implements PartialUpdateDto, Serializable {
-    @JsonIgnore
-    protected final Set<String> receivedFields = new HashSet<>();
-
     public interface Fields {
         String NAME = "name";
-
         String TYPE = "type";
-
         String DEFAULT_VALUE = "defaultValue";
-
         String POSSIBLE_VALUES = "possibleValues";
-
         String TAGS = "tags";
     }
 
@@ -40,12 +34,14 @@ public class PropertyMetadataRegisterDto implements PartialUpdateDto, Serializab
     @Size(max = 255, message = ConfigurationsMessages.MAX_LENGTH)
     private String type;
 
-    @Size(max = 255, message = ConfigurationsMessages.MAX_LENGTH)
     private String defaultValue;
 
     private List<String> possibleValues;
 
     private List<String> tags;
+
+    @JsonIgnore
+    protected final Set<String> receivedFields = new HashSet<>();
 
     public PropertyMetadataRegisterDto() {
     }

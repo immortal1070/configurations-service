@@ -19,9 +19,6 @@ import java.util.function.Consumer;
 
 import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
 
-//import com.immortal.utils.audit.AuditActionsEnum;
-//import com.immortal.utils.persistence.AuditDaoManager;
-//import com.immortal.utils.persistence.JmsDaoManager;
 
 /**
  * Implements Create/Update/Delete operations for JPA entity.
@@ -106,7 +103,7 @@ public abstract class AbstractDao<T, I> {
 
         //TODO update only when entity is different?
 
-        final T updatedEntity = update(entity);
+//        final T updatedEntity = update(entity);
 
 //        if (isJmsEnabled())
 //        {
@@ -117,12 +114,11 @@ public abstract class AbstractDao<T, I> {
 ////            getAuditDaoManager().sendUpdateAudit(updatedEntity, auditSnapshotBeforeUpdate);
 //        }
 
-        return updatedEntity;
+        return entity;
     }
 
-    protected T update(final T entity) {
+    protected T merge(final T entity) {
         final T result = getEm().merge(entity);
-//        getEm().flush();
         invalidateCache();
         return result;
     }

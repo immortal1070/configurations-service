@@ -14,7 +14,6 @@
 
     <artifactId>configurations-backend</artifactId>
     <description>Backend Services</description>
-    <!--    <packaging>ejb</packaging>-->
 
     <dependencies>
 

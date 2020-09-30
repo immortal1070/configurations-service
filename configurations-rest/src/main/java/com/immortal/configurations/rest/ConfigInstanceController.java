@@ -7,6 +7,7 @@ import com.immortal.configurations.interceptors.Logged;
 import com.immortal.configurations.service.ConfigInstanceService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,18 +27,19 @@ public class ConfigInstanceController implements ConfigInstanceResource {
     }
 
     @Override
-    public ConfigInstanceDto create(final ConfigInstancePersistDto dto) {
+    public ConfigInstanceDto create(@Valid final ConfigInstancePersistDto dto) {
         final ConfigInstanceDto created = service.create(dto);
+        //TODO add it everywhere
         return service.findById(created.getId());
     }
 
     @Override
-    public ConfigInstanceDto update(final UUID id, final ConfigInstancePersistDto dto) {
+    public ConfigInstanceDto update(final UUID id, @Valid final ConfigInstancePersistDto dto) {
         return service.update(id, dto);
     }
 
     @Override
-    public ConfigInstanceDto partialUpdate(final UUID id, final ConfigInstancePersistDto dto) {
+    public ConfigInstanceDto partialUpdate(final UUID id, @Valid final ConfigInstancePersistDto dto) {
         return service.partialUpdate(id, dto);
     }
 

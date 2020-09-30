@@ -7,6 +7,7 @@ import com.immortal.configurations.interceptors.Logged;
 import com.immortal.configurations.service.ConfigMetadataService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,7 +29,7 @@ public class ConfigMetadataController implements ConfigMetadataResource {
     }
 
     @Override
-    public ConfigMetadataDto register(final ConfigMetadataPersistDto configMetadataPersistDto) {
+    public ConfigMetadataDto register(@Valid final ConfigMetadataPersistDto configMetadataPersistDto) {
         configMetadataService.register(configMetadataPersistDto);
         return configMetadataService.findById(configMetadataPersistDto.getId());
     }

@@ -7,19 +7,19 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-import static com.immortal.configurations.api.params.PropertyMetadataSearchParams.Params.*;
+import static com.immortal.configurations.api.params.PropertyValueSearchParams.Params.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PropertyMetadataSearchParams implements Serializable {
+public class PropertyValueSearchParams implements Serializable {
     interface Params {
-        String GROUP = "group";
+        String VALUE = "value";
         String NAME = "name";
         String ID = "id";
-        String CONFIG_INSTANCE_ID = "configMetadataId";
+        String CONFIG_INSTANCE_ID = "configInstanceId";
     }
 
-    @QueryParam(GROUP)
-    List<String> groups;
+    @QueryParam(VALUE)
+    List<String> values;
 
     @QueryParam(NAME)
     List<String> names;
@@ -28,7 +28,7 @@ public class PropertyMetadataSearchParams implements Serializable {
     List<UUID> ids;
 
     @QueryParam(CONFIG_INSTANCE_ID)
-    List<String> configMetadataIds;
+    List<UUID> configInstanceIds;
 
 //    @QueryParam(OFFSET)
 //    @DefaultValue("0")
@@ -61,15 +61,15 @@ public class PropertyMetadataSearchParams implements Serializable {
 //    @DefaultValue(DbConstants.Sorting.DESC)
 //    String sortDirection;
 
-    public PropertyMetadataSearchParams() {
+    public PropertyValueSearchParams() {
     }
 
-    public List<String> getGroups() {
-        return groups;
+    public List<String> getValues() {
+        return values;
     }
 
-    public PropertyMetadataSearchParams setGroups(final List<String> groups) {
-        this.groups = groups;
+    public PropertyValueSearchParams setValues(final List<String> values) {
+        this.values = values;
         return this;
     }
 
@@ -77,7 +77,7 @@ public class PropertyMetadataSearchParams implements Serializable {
         return names;
     }
 
-    public PropertyMetadataSearchParams setNames(final List<String> names) {
+    public PropertyValueSearchParams setNames(final List<String> names) {
         this.names = names;
         return this;
     }
@@ -86,17 +86,17 @@ public class PropertyMetadataSearchParams implements Serializable {
         return ids;
     }
 
-    public PropertyMetadataSearchParams setIds(final List<UUID> ids) {
+    public PropertyValueSearchParams setIds(final List<UUID> ids) {
         this.ids = ids;
         return this;
     }
 
-    public List<String> getConfigMetadataIds() {
-        return configMetadataIds;
+    public List<UUID> getConfigInstanceIds() {
+        return configInstanceIds;
     }
 
-    public PropertyMetadataSearchParams setConfigMetadataIds(List<String> configMetadataIds) {
-        this.configMetadataIds = configMetadataIds;
+    public PropertyValueSearchParams setConfigInstanceIds(final List<UUID> configInstanceIds) {
+        this.configInstanceIds = configInstanceIds;
         return this;
     }
 }

@@ -1,6 +1,5 @@
 package com.immortal.configurations.util;
 
-import com.immortal.configurations.DateTimeModuleProvider;
 import com.immortal.configurations.api.constants.ConfigurationsConstants;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -14,7 +13,7 @@ public class TestRestClient {
 
         ResteasyClient client = new ResteasyClientBuilder().build();
         ResteasyWebTarget target = client.target(UriBuilder.fromPath(path));
-        target.register(new DateTimeModuleProvider());
+        target.register(new ObjectMapperProvider());
         target.register(ResponseLogInterceptor.class);
         target.register(RequestLogInterceptor.class);
         return target.proxy(resourceClazz);

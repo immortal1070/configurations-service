@@ -1,5 +1,6 @@
 package com.immortal.configurations.entity;
 
+import com.immortal.configurations.constants.PersistenceConstants;
 import com.immortal.configurations.entity.converters.StringListConverter;
 import com.immortal.configurations.util.DateUtil;
 import org.hibernate.annotations.Cache;
@@ -40,13 +41,13 @@ public class PropertyMetadataEntity implements Serializable {
     private UUID id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.CONFIG_METADATA_ID)
+    @JoinColumn(name = Columns.CONFIG_METADATA_ID, nullable = false)
     private ConfigMetadataEntity configMetadata;
 
     /**
      * for optimization, so you don't need to lazy load or join to config_metadata table when it's not needed.
      */
-    @Column(name = Columns.CONFIG_METADATA_ID, insertable = false, updatable = false)
+    @Column(name = Columns.CONFIG_METADATA_ID, insertable = false, updatable = false, nullable = false)
     private String configMetadataId;
 
     @Column(name = "name", nullable = false, updatable = false)
@@ -70,10 +71,10 @@ public class PropertyMetadataEntity implements Serializable {
     @Column(name = "tag")
     private List<String> tags;
 
-    @Column(name = "create_date", nullable = false, updatable = false)
+    @Column(name = PersistenceConstants.CREATE_DATE_COLUMN, nullable = false, updatable = false)
     private ZonedDateTime createDate;
 
-    @Column(name = "update_date", insertable = false)
+    @Column(name = PersistenceConstants.UPDATE_DATE_COLUMN, insertable = false)
     private ZonedDateTime updateDate;
 
     public PropertyMetadataEntity() {

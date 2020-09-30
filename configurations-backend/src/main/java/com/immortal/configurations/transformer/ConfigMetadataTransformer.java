@@ -18,11 +18,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class ConfigMetadataTransformer {
 
-    private final static Logger logger = Logger.getLogger(ConfigMetadataTransformer.class.getName());
-
-    @Inject
-    private PropertyMetadataTransformer propertyMetadataTransformer;
-
     @Inject
     private PropertyMetadataService propertyMetadataService;
 

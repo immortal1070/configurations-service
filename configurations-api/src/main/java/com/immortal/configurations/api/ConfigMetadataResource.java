@@ -6,6 +6,7 @@ import com.immortal.configurations.api.dto.ConfigMetadataPersistDto;
 import com.webcohesion.enunciate.metadata.rs.ResponseCode;
 import com.webcohesion.enunciate.metadata.rs.StatusCodes;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.net.HttpURLConnection;
@@ -68,7 +69,7 @@ public interface ConfigMetadataResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @StatusCodes({@ResponseCode(code = HttpURLConnection.HTTP_NO_CONTENT, condition = ConfigurationsMessages.SUCCESS),
         @ResponseCode(code = HttpURLConnection.HTTP_CONFLICT, condition = "input validation failed")})
-    ConfigMetadataDto register(ConfigMetadataPersistDto configMetadataPersistDto);
+    ConfigMetadataDto register(@Valid ConfigMetadataPersistDto configMetadataPersistDto);
 
     /**
      * Deletes ConfigMetadata.

@@ -1,5 +1,6 @@
 package com.immortal.configurations.entity;
 
+import com.immortal.configurations.constants.PersistenceConstants;
 import com.immortal.configurations.util.DateUtil;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -14,8 +15,6 @@ import java.util.UUID;
 import static com.immortal.configurations.constants.PersistenceConstants.ID_COLUMN;
 import static com.immortal.configurations.constants.PersistenceConstants.UUID_GENERATOR_TYPE;
 
-;
-
 @Entity(name = ConfigInstanceEntity.ENTITY_NAME)
 @Table(name = ConfigInstanceEntity.TABLE_NAME)
 @Cacheable
@@ -24,27 +23,36 @@ public class ConfigInstanceEntity implements Serializable {
     public static final String ENTITY_NAME = "ConfigInstance";
     public static final String TABLE_NAME = "config_instance";
 
+    interface Columns {
+        String CONFIG_METADATA_ID = "config_metadata_id";
+    }
+
     @Id
     @Column(name = ID_COLUMN)
     @GenericGenerator(name = UUID_GENERATOR_TYPE, strategy = UUID_GENERATOR_TYPE)
     @GeneratedValue(generator = UUID_GENERATOR_TYPE)
     private UUID id;
 
-    @Column(name = "create_date", nullable = false, updatable = false)
+    @Column(name = PersistenceConstants.CREATE_DATE_COLUMN, nullable = false, updatable = false)
     private ZonedDateTime createDate;
 
-    @Column(name = "update_date", insertable = false)
+    @Column(name = PersistenceConstants.UPDATE_DATE_COLUMN, insertable = false)
     private ZonedDateTime updateDate;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "config_metadata_id", nullable = false, updatable = false)
+    @JoinColumn(name = Columns.CONFIG_METADATA_ID, nullable = false)
     private ConfigMetadataEntity configMetadata;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = ID_COLUMN, nullable = false, insertable = false, updatable = false)
+    /**
+     * for optimization, so you don't need to lazy load or join to config_metadata table when it's not needed.
+     */
+    @Column(name = Columns.CONFIG_METADATA_ID, insertable = false, updatable = false, nullable = false)
+    private String configMetadataId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "configInstance")
     private List<PropertyValueEntity> propertyValues;
 
     public ConfigInstanceEntity() {
@@ -98,6 +106,14 @@ public class ConfigInstanceEntity implements Serializable {
 
     public void setConfigMetadata(final ConfigMetadataEntity configMetadata) {
         this.configMetadata = configMetadata;
+    }
+
+    public String getConfigMetadataId() {
+        return configMetadataId;
+    }
+
+    public void setConfigMetadataId(final String configMetadataId) {
+        this.configMetadataId = configMetadataId;
     }
 
     public List<PropertyValueEntity> getPropertyValues() {

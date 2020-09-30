@@ -12,13 +12,9 @@ import com.immortal.configurations.validation.NotExistConfigMetadata;
 import org.apache.commons.collections4.CollectionUtils;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-
-import static com.immortal.configurations.constants.PersistenceConstants.PERSISTENCE_CONTEXT;
 
 @Logged
 @Transactional
@@ -31,9 +27,6 @@ public class ConfigMetadataService {
 
     @Inject
     private ConfigMetadataTransformer transformer;
-
-    @PersistenceContext(unitName = PERSISTENCE_CONTEXT)
-    private EntityManager em;
 
     public boolean exists(final String id) {
         return dao.exists(id);

@@ -13,4 +13,5 @@ public class ConfigInstanceDao extends AbstractDao<ConfigInstanceEntity, UUID> {
     public Class<ConfigInstanceEntity> getClazz() {
         return ConfigInstanceEntity.class;
     }
+
 }
