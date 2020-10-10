@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  mysql8:
+    hostname: "mysql"
+    image: "mysql/mysql-server:8.0"
+    volumes:
+        - my-db:/var/lib/mysql
+    ports:
+      - "33060:3306"
+    expose:
+        - "3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: configurations
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin123
+volumes:
+    my-db:

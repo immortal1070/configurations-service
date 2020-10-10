@@ -1,1 +1,1 @@
-MYSQL_USER=root MYSQL_PASSWORD=root MYSQL_SERVICE_HOST=127.0.0.1 MYSQL_SERVICE_PORT=30306 MYSQL_DATABASE=configurations java -agentlib:jdwp=transport=dt_socket,address=8788,server=y,suspend=n -jar configurations-rest/target/configurations-bootable.jar
+MYSQL_USER=root MYSQL_PASSWORD=admin123 MYSQL_SERVICE_HOST=127.0.0.1 MYSQL_SERVICE_PORT=33060 MYSQL_DATABASE=configurations java -agentlib:jdwp=transport=dt_socket,address=8788,server=y,suspend=n -jar configurations-rest/target/configurations-bootable.jar
