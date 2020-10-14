@@ -1,0 +1,1 @@
+docker-compose up --force-recreate --build -d --no-deps configs-app

@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  mysql8:
+    hostname: "mysql"
+    image: "mysql/mysql-server:8.0"
+    volumes:
+        - my-db:/var/lib/mysql
+    ports:
+      - "33060:3306"
+    expose:
+        - "3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: configurations
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin123
+  configs-app:
+      image: "immortal/configs-jib"
+      links:
+        - mysql8:mysql8
+      ports:
+          - "8080:8080"
+          - "8788:8788"
+      environment:
+          MYSQL_ROOT_PASSWORD: admin123
+          MYSQL_DATABASE: configurations
+          MYSQL_USER: root
+          MYSQL_PASSWORD: admin123
+          MYSQL_SERVICE_HOST: mysql8
+          MYSQL_SERVICE_PORT: 3306
+          JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=8788,server=y,suspend=n
+volumes:
+    my-db:
