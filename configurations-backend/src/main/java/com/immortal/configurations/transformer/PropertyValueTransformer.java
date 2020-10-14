@@ -18,6 +18,7 @@ public class PropertyValueTransformer {
             entity.setName(dto.getName());
             entity.setValue(dto.getValue());
             entity.setConfigInstance(configInstanceEntity);
+            entity.setConfigInstanceId(configInstanceEntity.getId());
         };
     }
 

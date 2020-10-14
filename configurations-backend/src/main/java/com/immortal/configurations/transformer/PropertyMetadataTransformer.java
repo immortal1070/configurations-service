@@ -33,6 +33,7 @@ public class PropertyMetadataTransformer {
                 (entity, dto) -> {
                     ConfigMetadataEntity configMetadata = configMetadataDao.findById(dto.getConfigMetadataId());
                     entity.setConfigMetadata(configMetadata);
+                    entity.setConfigMetadataId(configMetadata.getId());
                 });
             put(GROUP, (entity, dto) -> entity.setGroup(dto.getGroup()));
         }

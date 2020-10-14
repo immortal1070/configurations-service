@@ -25,8 +25,10 @@ public class ConfigInstanceTransformer {
     private ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto> modifiersMap = new ModifiersMap<ConfigInstanceEntity, ConfigInstancePersistDto>() {
         {
             put(NAME, (entity, dto) -> entity.setName(dto.getName()));
-            put(CONFIG_METADATA_ID, (entity, dto) ->
-                entity.setConfigMetadata(configMetadataDao.findById(dto.getConfigMetadataId())));
+            put(CONFIG_METADATA_ID, (entity, dto) -> {
+                entity.setConfigMetadata(configMetadataDao.findById(dto.getConfigMetadataId()));
+                entity.setConfigMetadataId(dto.getConfigMetadataId());
+            });
         }
     };
 
